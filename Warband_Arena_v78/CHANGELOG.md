@@ -17,7 +17,7 @@
   - T4 Guardian Giraffe 2/7 Taunt, Battlecry: a Shield marker on a friendly Beast · Zebu Traveler 5/3, when it attacks: gains the stats of your rightmost other Beast (golden: two).
   - T5 Curious Buffalo 6/5 Cleave · Elephant King 5/6, Tough marker, Activate (1): destroy a friendly minion and gain a random keyword marker (golden: two).
   - T6 Fierce King Gorilla 10/6 Cleave, when it attacks: gains the markers and the stats of the weakest enemy (golden: twice) · Old King 7/8, Battlecry and after a win: gains the stats and markers of your oldest Beast (golden: twice).
-- **New tavern spells**:
+- **New tavern spells** (the old ones are gone: the Classic meta has these 12, and they can be changed in the card editor like your own spells):
   - T1 Strength (1 gold): the next minion you buy gets +1/+2.
   - T2 Blue Sky (2): a +2/+2 marker on a minion · Dawn Sky (2): a +1/+3 marker · Morning Sky (2): a +3/+1 marker · Night Sky (2): a +1/+1 marker on two random friendly minions.
   - T3 Evolution (1): give a minion Stealth · Evolution (1): give a minion Tough. T4 Evolution (2): Windfury · Evolution (2): Shield.

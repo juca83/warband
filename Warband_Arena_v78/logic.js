@@ -319,6 +319,83 @@
                          { trigger: "afterWin", action: "absorb", target: "oldest", ttribe: BEAST }, { trigger: "afterWin", action: "mkTake", mkeep: "copy", target: "oldest", ttribe: BEAST }],
                        gold: { on: true, attack: 14, health: 16, abilities: [{ trigger: "battlecry", action: "absorb", target: "oldest", ttribe: BEAST, repeat: 2 }, { trigger: "battlecry", action: "mkTake", mkeep: "copy", target: "oldest", ttribe: BEAST, repeat: 2 },
                          { trigger: "afterWin", action: "absorb", target: "oldest", ttribe: BEAST, repeat: 2 }, { trigger: "afterWin", action: "mkTake", mkeep: "copy", target: "oldest", ttribe: BEAST, repeat: 2 }] } },
+    // ---------------- Constructs
+    tin_squire:     { aff: ["steam"], name: "Tin Squire", tier: 1, tribe: CONSTRUCT, attack: 1, health: 2, shield: true, text: "" },
+    gear_golem:     { aff: ["steam"], name: "Gear Golem", tier: 2, tribe: CONSTRUCT, attack: 2, health: 4, taunt: true, battlecry: "buff_random_construct", text: "Battlecry: Give another friendly Construct +{n}/+{n}.", n: 2 },
+    arc_sentinel:   { aff: ["steam", "earth"], name: "Arc Sentinel", tier: 3, tribe: CONSTRUCT, attack: 3, health: 3, taunt: true, shield: true, text: "" },
+    twinblade:      { aff: ["steam"], name: "Twin-Blade Automaton", tier: 4, tribe: CONSTRUCT, attack: 3, health: 4, windfury: true, shield: true, text: "" },
+    shield_forge:   { aff: ["steam"], name: "Shield Forge", tier: 5, tribe: CONSTRUCT, attack: 4, health: 6, onShieldLost: "forge", text: "After a friendly Shield breaks, give your Constructs +{n} Attack.", n: 2 },
+    titan_engine:   { aff: ["steam"], name: "Titan Engine", tier: 6, tribe: CONSTRUCT, attack: 6, health: 8, startOfCombat: "shield_constructs", text: "Start of Combat: Give your other Constructs Shield.", textG: "Start of Combat: Give your other Constructs Shield and +3/+3." },
+    // ---------------- Spirits
+    grave_moth:     { aff: ["water"], name: "Grave Moth", tier: 1, tribe: SPIRIT, attack: 2, health: 1, reborn: true, text: "" },
+    wailing_shade:  { aff: ["water"], name: "Wailing Shade", tier: 2, tribe: SPIRIT, attack: 3, health: 2, deathrattle: "buff_spirits", text: "Deathrattle: Give your other Spirits +{n}/+{n}.", n: 2 },
+    bone_collector: { aff: ["tar"], name: "Bone Collector", tier: 3, tribe: SPIRIT, attack: 2, health: 4, onAllyDeath: "grow", text: "After a friendly minion dies in combat, gain +{n}/+{n}.", n: 1 },
+    crypt_warden:   { aff: ["earth"], name: "Crypt Warden", tier: 4, tribe: SPIRIT, attack: 3, health: 5, onReborn: "reborn_buff", text: "After a friendly minion is Reborn, give it +{n}/+{n}.", n: 4 },
+    ash_lich:       { aff: ["tar"], name: "Ash Lich", tier: 5, tribe: SPIRIT, attack: 4, health: 6, reborn: true, deathrattle: "buff_spirits", text: "Deathrattle: Give your other Spirits +{n}/+{n}.", n: 2 },
+    pale_sovereign: { aff: ["water"], name: "Pale Sovereign", tier: 6, tribe: SPIRIT, attack: 7, health: 7, deathrattle: "spirits_reborn", text: "Deathrattle: Give your other Spirits Reborn.", textG: "Deathrattle: Give your other Spirits Reborn and +3/+3." },
+    // ---------------- Corsairs
+    deck_scamp:     { aff: ["water"], name: "Deck Scamp", tier: 1, tribe: CORSAIR, attack: 2, health: 1, onSell: "scamp", text: "Sells for {n} extra gold.", n: 2 },
+    bounty_captain: { aff: ["tar"], name: "Bounty Captain", tier: 2, tribe: CORSAIR, attack: 3, health: 2, onBuy: "corsair_rally", text: "After you buy a Corsair, give your Corsairs +{n}/+{n}.", n: 1 },
+    gold_smuggler:  { aff: ["water"], name: "Gold Smuggler", tier: 3, tribe: CORSAIR, attack: 3, health: 4, battlecry: "next_gold", text: "Battlecry: Gain {n} extra gold next turn.", n: 3 },
+    cannoneer:      { aff: ["tar", "steam"], name: "Cannoneer", tier: 4, tribe: CORSAIR, attack: 4, health: 4, startOfCombat: "cannon", text: "Start of Combat: Deal 3 damage to a random enemy minion.", textG: "Start of Combat: Deal 3 damage to a random enemy minion, twice." },
+    dread_corsair:  { aff: ["tar"], name: "Dread Corsair", tier: 5, tribe: CORSAIR, attack: 5, health: 5, onAttack: "corsair_cheer", text: "Whenever this attacks, give your other Corsairs +{n}/+{n}.", n: 2 },
+    admiral:        { aff: ["water"], name: "Admiral Brinebeard", tier: 6, tribe: CORSAIR, attack: 7, health: 7, endOfTurn: "admiral", text: "At the end of your turn, give your other Corsairs +{n}/+{n}.", n: 4 },
+    // ---------------- Elementals
+    spark_sprite:   { aff: ["steam"], name: "Spark Sprite", tier: 1, tribe: ELEMENTAL, attack: 1, health: 2, battlecry: "free_roll", text: "Battlecry: Your next Refresh is free.", textG: "Battlecry: Your next 2 Refreshes are free." },
+    molten_brute:   { aff: ["earth"], name: "Molten Brute", tier: 2, tribe: ELEMENTAL, attack: 2, health: 3, onPlayOther: "brute", text: "After you play another Elemental, gain +{n}/+{n}.", n: 2 },
+    cinder_chef:    { aff: ["steam"], name: "Cinder Chef", tier: 3, tribe: ELEMENTAL, attack: 3, health: 4, onPlayOther: "chef", text: "After you play another Elemental, minions in the tavern get +{n}/+{n} for the rest of the game.", n: 1 },
+    storm_djinn:    { aff: ["water", "steam"], name: "Storm Djinn", tier: 4, tribe: ELEMENTAL, attack: 4, health: 5, battlecry: "add_spell", text: "Battlecry: Add a random tavern spell to your hand.", textG: "Battlecry: Add 2 random tavern spells to your hand." },
+    magma_titan:    { aff: ["earth", "tar"], name: "Magma Titan", tier: 5, tribe: ELEMENTAL, attack: 5, health: 6, onSpell: "titan", text: "After you cast a tavern spell, gain +{n}/+{n}.", n: 2 },
+    primordial:     { aff: ["steam"], name: "Primordial Flame", tier: 6, tribe: ELEMENTAL, attack: 6, health: 6, battlecry: "flame_all", text: "Battlecry: Give your other Elementals +{n}/+{n}.", n: 4 },
+    // ---------------- Dragons
+    ember_whelp:    { aff: ["tar"], name: "Ember Whelp", tier: 1, tribe: DRAGON, attack: 2, health: 1, startOfCombat: "whelp", text: "Start of Combat: Deal {n} damage to a random enemy minion.", n: 1 },
+    scale_warder:   { aff: ["earth"], name: "Scale Warder", tier: 2, tribe: DRAGON, attack: 2, health: 4, taunt: true, battlecry: "dragon_shield", text: "Battlecry: Give another friendly Dragon Shield.", textG: "Battlecry: Give two other friendly Dragons Shield." },
+    hoard_keeper:   { aff: ["earth"], name: "Hoard Keeper", tier: 3, tribe: DRAGON, attack: 3, health: 4, startOfCombat: "dragons_atk", text: "Start of Combat: Give your other Dragons +{n} Attack.", n: 1 },
+    twin_flame:     { aff: ["steam"], name: "Twin-Flame Drake", tier: 4, tribe: DRAGON, attack: 3, health: 5, startOfCombat: "twin_flame", text: "Start of Combat: Deal {n} damage to two random enemy minions.", n: 2 },
+    aurum_wyrm:     { aff: ["earth"], name: "Aurum Wyrm", tier: 5, tribe: DRAGON, attack: 4, health: 5, shield: true, startOfCombat: "dragons_shield", text: "Start of Combat: Give your other Dragons Shield.", textG: "Start of Combat: Give your other Dragons Shield and +2/+2." },
+    cinderwing:     { aff: ["tar"], name: "Cinderwing Ancient", tier: 6, tribe: DRAGON, attack: 6, health: 7, startOfCombat: "breath", text: "Start of Combat: Deal {n} damage to all enemy minions.", n: 2 },
+    // ---------------- Tidekin
+    reef_crier:     { aff: ["coral"], name: "Reef Crier", tier: 1, tribe: TIDEKIN, attack: 2, health: 2, battlecry: "double_next", text: "Battlecry: Your next Battlecry this turn triggers twice.", textG: "Battlecry: Your next two Battlecries this turn trigger twice." },
+    shell_drummer:  { aff: ["coral"], name: "Shell Drummer", tier: 2, tribe: TIDEKIN, attack: 2, health: 3, onPlayOther: "drummer", text: "After you play a minion with a Battlecry, gain +{n}/+{n}.", n: 1 },
+    tide_caller:    { aff: ["coral", "water"], name: "Tide Caller", tier: 3, tribe: TIDEKIN, attack: 3, health: 4, battlecry: "tide_rally", text: "Battlecry: Give your other Tidekin +{n}/+{n}.", n: 2 },
+    pearl_diver:    { aff: ["coral", "water"], name: "Pearl Diver", tier: 4, tribe: TIDEKIN, attack: 4, health: 4, battlecry: "add_battlecry", text: "Battlecry: Add a random minion with a Battlecry to your hand.", textG: "Battlecry: Add 2 random minions with a Battlecry to your hand." },
+    deep_chanter:   { aff: ["water"], name: "Deep Chanter", tier: 5, tribe: TIDEKIN, attack: 4, health: 6, chanter: true, text: "Your Battlecries trigger twice.", textG: "Your Battlecries trigger three times." },
+    leviathan:      { aff: ["coral", "water"], name: "Leviathan Herald", tier: 6, tribe: TIDEKIN, attack: 6, health: 8, battlecry: "leviathan", text: "Battlecry: Give your minions +1/+1 for each Battlecry you played this game (up to 8).", textG: "Battlecry: Give your minions +2/+2 for each Battlecry you played this game (up to 8)." },
+    // ---------------- Infernals
+    grubling_imp:   { aff: ["tar"], name: "Grubling Imp", tier: 1, tribe: INFERNAL, attack: 3, health: 1, battlecry: "lose_health", text: "Battlecry: Your hero loses 2 Health." },
+    hungering_fiend:{ aff: ["tar"], name: "Hungering Fiend", tier: 2, tribe: INFERNAL, attack: 2, health: 2, battlecry: "devour", text: "Battlecry: Devour a random minion in the tavern.", textG: "Battlecry: Devour 2 random minions in the tavern." },
+    soul_glutton:   { aff: ["tar"], name: "Soul Glutton", tier: 3, tribe: INFERNAL, attack: 3, health: 4, onDevour: "glutton", text: "After you Devour, give your other Infernals +{n}/+{n}.", n: 1 },
+    pit_butcher:    { aff: ["earth"], name: "Pit Butcher", tier: 4, tribe: INFERNAL, attack: 4, health: 5, endOfTurn: "butcher", text: "At the end of your turn, Devour a random minion in the tavern.", textG: "At the end of your turn, Devour 2 random minions in the tavern." },
+    abyssal_maw:    { aff: ["tar"], name: "Abyssal Maw", tier: 5, tribe: INFERNAL, attack: 5, health: 6, maw: true, text: "Devouring gives one and a half times the stats.", textG: "Devouring gives double the stats." },
+    lord_of_cinders:{ aff: ["tar"], name: "Lord of Cinders", tier: 6, tribe: INFERNAL, attack: 7, health: 7, battlecry: "devour_all", text: "Battlecry: Devour 3 random minions in the tavern.", textG: "Battlecry: Devour 3 random minions in the tavern for twice the stats." },
+    // ---------------- Neutral
+    lantern_keeper: { aff: ["coral"], name: "Lantern Keeper", tier: 1, tribe: NEUTRAL, attack: 2, health: 2, battlecry: "buff_random_friend", text: "Battlecry: Give another friendly minion +{n}/+{n}.", n: 1 },
+    tavern_bard:    { name: "Tavern Bard", tier: 2, tribe: NEUTRAL, attack: 2, health: 3, endOfTurn: "buff_random_friend", text: "At the end of your turn, give another friendly minion +{n}/+{n}.", n: 1 },
+    rally_herald:   { aff: ["coral"], name: "Rallying Herald", tier: 4, tribe: NEUTRAL, attack: 3, health: 5, battlecry: "herald", text: "Battlecry: Give your minions +{n}/+{n} for each different tribe among them.", n: 1 },
+    great_warden:   { aff: ["earth"], name: "Great Warden", tier: 5, tribe: NEUTRAL, attack: 5, health: 7, taunt: true, startOfCombat: "buff_all_friends", text: "Start of Combat: Give your other minions +{n}/+{n}.", n: 1 },
+    grand_champion: { name: "Grand Champion", tier: 6, tribe: NEUTRAL, attack: 6, health: 10, taunt: true, shield: true, text: "" },
+    // ---------------- Affinity cards (neutral: they show up in every lobby)
+    coral_bud:        { aff: ["coral"], name: "Coral Bud", tier: 1, tribe: NEUTRAL, attack: 1, health: 2, text: "", abilities: [{ trigger: "pulse", action: "buff", target: "randomFriend", count: 1, a: 1, h: 1 }] },
+    gilded_polyp:     { aff: ["coral"], name: "Gilded Polyp", tier: 2, tribe: NEUTRAL, attack: 2, health: 2, text: "", abilities: [{ trigger: "pulse", action: "gold", n: 1, limit: "turn" }] },
+    catalyst_coral:   { aff: ["coral"], name: "Catalyst Coral", tier: 2, tribe: NEUTRAL, attack: 1, health: 3, text: "", abilities: [{ trigger: "pulse", action: "charge", target: "allFriends", n: 1 }] },
+    reef_echo:        { aff: ["coral", "water"], name: "Reef Echo", tier: 3, tribe: NEUTRAL, attack: 2, health: 4, text: "", abilities: [{ trigger: "pulse", action: "pulseDouble", n: 1 }] },
+    nurturing_polyp:  { aff: ["coral"], name: "Nurturing Polyp", tier: 3, tribe: NEUTRAL, attack: 2, health: 5, text: "", abilities: [{ trigger: "pulse", action: "buff", target: "allFriends", taff: "coral", a: 1, h: 1 }] },
+    reef_mother:      { aff: ["coral"], name: "Reef Mother", tier: 4, tribe: NEUTRAL, attack: 3, health: 5, text: "", abilities: [{ trigger: "pulse", action: "addCard", card: "coral_sprout", count: 1, every: 3 }] },
+    reef_warden:      { aff: ["coral"], name: "Reef Warden", tier: 5, tribe: NEUTRAL, attack: 4, health: 6, text: "", abilities: [{ trigger: "pulse", action: "buff", target: "adjacent", a: 2, h: 2 }] },
+    valve_sprite:     { aff: ["steam"], name: "Valve Sprite", tier: 1, tribe: NEUTRAL, attack: 1, health: 2, text: "", abilities: [{ trigger: "endOfTurn", action: "gainPressure", n: 1 }] },
+    piston_brute:     { aff: ["steam"], name: "Piston Brute", tier: 2, tribe: NEUTRAL, attack: 2, health: 3, text: "", abilities: [{ trigger: "battlecry", action: "gainPressure", n: 2 }] },
+    unstable_boiler:  { aff: ["steam"], name: "Unstable Boiler", tier: 3, tribe: NEUTRAL, attack: 3, health: 5, text: "", abilities: [{ trigger: "onSpell", action: "gainPressure", n: 1 }, { trigger: "battlecry", action: "buff", target: "pickFriend", a: 5, h: 5, pcost: 3 }] },
+    pressure_titan:   { aff: ["steam"], name: "Pressure Titan", tier: 5, tribe: NEUTRAL, attack: 5, health: 5, text: "", abilities: [{ trigger: "battlecry", action: "buff", target: "allFriendsSelf", a: 1, h: 1, pcost: 1, pall: true }] },
+    tar_spitter:      { aff: ["tar"], name: "Tar Spitter", tier: 2, tribe: NEUTRAL, attack: 3, health: 2, text: "", abilities: [{ trigger: "startOfCombat", action: "mire", target: "randomEnemy", count: 1 }] },
+    sticky_slug:      { aff: ["tar"], name: "Sticky Slug", tier: 3, tribe: NEUTRAL, attack: 3, health: 7, taunt: true, text: "", abilities: [{ trigger: "onAttacked", action: "mire", target: "trigger" }] },
+    bitumen_devourer: { aff: ["tar"], name: "Bitumen Devourer", tier: 5, tribe: NEUTRAL, attack: 5, health: 8, text: "", abilities: [{ trigger: "onMiredDeath", action: "permBuff", target: "self", a: 3, h: 3 }] },
+    brook_nymph:      { aff: ["water"], name: "Brook Nymph", tier: 1, tribe: NEUTRAL, attack: 2, health: 1, text: "", abilities: [{ trigger: "battlecry", action: "buff", target: "self", a: 1, h: 1 }] },
+    tide_shaper:      { aff: ["water"], name: "Tide Shaper", tier: 2, tribe: NEUTRAL, attack: 2, health: 3, text: "", abilities: [{ trigger: "afterReflux", action: "gold", n: 1 }] },
+    cascade_spirit:   { aff: ["water"], name: "Cascade Spirit", tier: 4, tribe: NEUTRAL, attack: 4, health: 6, text: "", abilities: [{ trigger: "afterReflux", action: "buff", target: "allFriends", taff: "water", a: 2, h: 2 }] },
+    pebble_mole:      { aff: ["earth"], name: "Pebble Mole", tier: 1, tribe: NEUTRAL, attack: 1, health: 2, text: "", abilities: [{ trigger: "afterFoundation", action: "buff", target: "self", a: 1, h: 1 }] },
+    stone_golem:      { aff: ["earth"], name: "Stone Golem", tier: 2, tribe: NEUTRAL, attack: 2, health: 4, taunt: true, text: "", abilities: [{ trigger: "battlecry", action: "buildFoundation", target: "self" }] },
+    ancestral_monolith: { aff: ["earth"], name: "Ancestral Monolith", tier: 4, tribe: NEUTRAL, attack: 4, health: 8, text: "", abilities: [{ trigger: "startOfCombat", action: "buff", target: "self", a: 5, h: 5, per: "foundations" }] },
+    telluric_architect: { aff: ["earth"], name: "Telluric Architect", tier: 6, tribe: NEUTRAL, attack: 6, health: 10, text: "", abilities: [{ trigger: "endOfTurn", action: "buff", target: "foundationMinions", a: 2, h: 2 }] },
   };
   const TOKENS = {
     pup: { name: "Pup", tier: 1, tribe: BEAST, attack: 1, health: 1, token: true, text: "" },
@@ -327,17 +404,8 @@
     coral_sprout: { aff: ["coral"], name: "Coral Sprout", tier: 1, tribe: NEUTRAL, attack: 1, health: 1, token: true, text: "", abilities: [{ trigger: "pulse", action: "buff", target: "self", a: 1, h: 1 }] },
   };
   const SPELLS = {
-    lucky_coin:  { name: "Lucky Coin", tier: 1, cost: 0, target: false, text: "Gain 1 gold." },
-    tavern_brew: { name: "Tavern Brew", tier: 1, cost: 1, target: true, text: "Give a minion +2/+2." },
-    polish:      { name: "Smith's Polish", tier: 2, cost: 2, target: true, text: "Give a minion Shield." },
-    recruit:     { name: "Recruiting Horn", tier: 2, cost: 2, target: false, text: "Discover a minion from your tavern tier." },
-    gold_rush:   { name: "Gold Rush", tier: 3, cost: 1, target: false, text: "Next turn, gain 3 extra gold." },
-    spirit_ward: { name: "Spirit Ward", tier: 3, cost: 2, target: true, text: "Give a minion Reborn." },
-    feast:       { name: "Hearty Feast", tier: 3, cost: 3, target: false, text: "Give your minions +1/+1." },
-    mirror:      { name: "Mirror Draught", tier: 4, cost: 4, target: true, text: "Add a plain copy of a friendly minion to your hand." },
-    venom_vial:  { name: "Venom Vial", tier: 4, cost: 3, target: true, text: "Give a minion Venomous." },
-    war_banner:  { name: "War Banner", tier: 5, cost: 3, target: false, text: "Give minions of your most common tribe +3/+3." },
-    // v78 (with the Beasts): skies give stat markers, the Evolutions a keyword, and Home + Sweet = Home Sweet Home
+    // v78: the Classic meta's tavern spells (the old ones are gone). Skies give stat markers, the Evolutions a keyword,
+    // and Home + Sweet = Home Sweet Home. Made of abilities: they can be changed in the card editor like any custom spell.
     strength:        { name: "Strength", tier: 1, cost: 1, target: false, custom: true, abilities: [{ trigger: "cast", action: "nextBuyBuff", a: 1, h: 2, count: 1 }] },
     blue_sky:        { name: "Blue Sky", tier: 2, cost: 2, target: true, custom: true, abilities: [{ trigger: "cast", action: "mkPlus", n: 1, a: 2, h: 2, target: "chosen" }] },
     dawn_sky:        { name: "Dawn Sky", tier: 2, cost: 2, target: true, custom: true, abilities: [{ trigger: "cast", action: "mkPlus", n: 1, a: 1, h: 3, target: "chosen" }] },
@@ -5120,7 +5188,7 @@
       if (!c || !c.id) continue;
       if (c.abilities) c = Object.assign({}, c, { abilities: noLinks(c.abilities) });
       if (c.kind === "spell") {
-        if (BASE_SPELLS[c.id]) continue; // built-in spell effects are fixed
+        if (BASE_SPELLS[c.id] && !BASE_SPELLS[c.id].abilities) continue; // the old fixed built-in spells can't change; spells made of abilities can
         SPELLS[c.id] = { name: c.name || "New spell", tier: clampTier(c.tier), cost: Math.max(0, Math.min(10, c.cost | 0)), target: !!c.target, custom: true,
           abilities: (c.abilities || []).map((ab) => Object.assign({}, ab, { trigger: "cast" })), customText: c.customText || "", inPool: c.inPool !== false, look: cleanLook(c.look) };
         continue;

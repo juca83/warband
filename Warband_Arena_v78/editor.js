@@ -90,6 +90,8 @@
     powerCost: (h.power || {}).cost | 0, abilities: JSON.parse(JSON.stringify((h.power || {}).abilities || [])), customText: (h.power || {}).text || "" });
   const packHero = (r) => ({ id: r.id, name: r.name, health: r.health, power: { name: r.powerName, type: r.powerType, cost: r.powerType === "active" ? r.powerCost : 0, abilities: r.abilities, text: r.customText || "" } });
   const heroesWith = (r) => { const l = heroList().filter((h) => h.id !== r.id); l.push(packHero(r)); return l; };
+  // a built-in spell with a fixed effect (not made of abilities): only its picture can change
+  const fixedSpell = (r) => !!(r && isSpell(r) && r.builtIn && W.SPELLS[r.id] && !W.SPELLS[r.id].abilities);
   const builtInMinion = (id) => W.ORIGINAL[id] || (W.CARDS[id] && !W.CARDS[id].custom ? W.CARDS[id] : null);
   function recordFor(key) {
     const [kind, id] = key.split("|");
@@ -99,7 +101,7 @@
     if (kind === "anomaly") { const a = anomList().find((x) => x.id === id); return flatAnom(a || { id, name: "Anomaly" }); }
     if (kind === "keyword") { const k = kwList().find((x) => x.id === id); return flatKw(k || { id, name: "Keyword" }); }
     if (kind === "affinity") return flatAff(id);
-    if (kind === "spell") { const s = W.SPELLS[id]; return { id, kind: "spell", name: s.name, tier: s.tier, cost: s.cost, target: s.target, abilities: [], builtIn: true }; }
+    if (kind === "spell") { const s = W.SPELLS[id]; return { id, kind: "spell", name: s.name, tier: s.tier, cost: s.cost, target: s.target, abilities: clone(s.abilities || []), customText: s.customText || "", builtIn: true }; }
     const d = builtInMinion(id);
     return { id, kind: "minion", name: d.name, tribe: d.tribe, tier: d.tier, attack: d.attack, health: d.health,
       taunt: !!d.taunt, shield: !!d.shield, reborn: !!d.reborn, windfury: !!d.windfury, venomous: !!d.venomous, cleave: !!d.cleave, stealth: !!d.stealth, magnetic: !!d.magnetic, rally: !!d.rally, tough: !!d.tough,
@@ -115,7 +117,7 @@
   // Apply the saved set plus the card being edited to the engine, so previews and tests use it.
   function applyDraft() {
     const list = work.filter((r) => !(cur && r.id === cur.id && kindOf(r) === kindOf(cur)));
-    if (cur && !powerLike(cur) && !isKw(cur) && !isAff(cur) && !(cur.builtIn && isSpell(cur))) list.push(plainRec(cur));
+    if (cur && !powerLike(cur) && !isKw(cur) && !isAff(cur) && !fixedSpell(cur)) list.push(plainRec(cur));
     const o = regOpts();
     if (isKw(cur)) o.keywords = kwsWith(cur);
     if (isAff(cur)) { o.affinities = affCfgWith(cur); list.push({ id: "__affprev", name: (cur.name || "?") + " adept", tier: 3, tribe: "", attack: 3, health: 4, aff: [cur.id], abilities: [], inPool: false }); }
@@ -377,7 +379,7 @@
     const anoms = anomList().map(flatAnom).filter(match);
     const minionRows = minions.filter(({ r }) => match(r) && (!tierF || r.tier === tierF));
     const spellRows = work.filter((r) => isSpell(r) && !r.builtIn).map((r) => ({ r, tag: "YOURS" }))
-      .concat(Object.keys(W.SPELLS).filter((id) => !W.SPELLS[id].custom).map((id) => ({ r: recordFor("spell|" + id), tag: pics.has("spell:" + id) ? "PICTURE" : "" }))).filter(({ r }) => match(r));
+      .concat(Object.keys(W.SPELLS).filter((id) => !W.SPELLS[id].custom || (W.BASE_SPELLS && W.BASE_SPELLS[id])).map((id) => ({ r: recordFor("spell|" + id), tag: pics.has("spell:" + id) ? "PICTURE" : "" }))).filter(({ r }) => match(r));
     const kws = kwList().map(flatKw).filter(match);
     const affs = affIds().map(flatAff).filter(match);
     const counts = { all: heroes.length + anoms.length + minionRows.length + spellRows.length + kws.length + affs.length, minion: minionRows.length, spell: spellRows.length, hero: heroes.length, anomaly: anoms.length, keyword: kws.length, affinity: affs.length };
@@ -2057,7 +2059,7 @@
     if (isAnom(cur)) return renderAnomForm();
     if (isHero(cur)) return renderHeroForm();
     const r = cur, spell = isSpell(r), base = r.builtIn && !spell ? builtInMinion(r.id) : null;
-    const lockedSpell = spell && r.builtIn;
+    const lockedSpell = fixedSpell(r);
     r.abilities = (r.abilities || []).map((ab) => fixAbility(ab, r));
     const ph = img && !img.removed && img.src ? img : null;
     $("#ceForm", el).innerHTML = `
@@ -2611,7 +2613,7 @@
       if (img && img.changed) await ST.saveImage(imgKey(cur), img.removed ? null : { src: img.src, crop: img.crop, tcrop: img.tcrop || { ...img.crop }, tok: img.tok, card: img.card });
       if (img) img.changed = false;
       work = work.filter((r) => !(r.id === cur.id && kindOf(r) === kindOf(cur)));
-      if (!(cur.builtIn && isSpell(cur))) work.push(clone(cur)); // built-in spells only keep a picture
+      if (!fixedSpell(cur)) work.push(clone(cur)); // the old fixed built-in spells only keep a picture
       await ST.saveCards(work);
       work = clone(ST.cards);
       dirty = false; pending = null;
