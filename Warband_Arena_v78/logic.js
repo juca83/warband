@@ -297,22 +297,16 @@
                        gold: { on: true, attack: 6, health: 4, abilities: [{ trigger: "activate", actCost: 2, action: "summon", card: "cub", count: 2 }] } },
     proud_bird:      { name: "Proud Bird", tier: 2, tribe: BEAST, attack: 2, health: 2, text: "", abilities: [{ trigger: "battlecry", action: "summon", card: "birdie", count: 1 }],
                        gold: { on: true, attack: 4, health: 4, abilities: [{ trigger: "battlecry", action: "summon", card: "birdie", count: 2 }] } },
-    thieving_magpie: { name: "Thieving Magpie", tier: 2, tribe: BEAST, attack: 2, health: 3, text: "", abilities: [{ trigger: "startOfCombat", action: "mkMove", n: 1, target: "randomEnemy", count: 1, tmk: true }] },
     friendly_zebra:  { name: "Friendly Zebra", tier: 3, tribe: BEAST, attack: 1, health: 2, text: "", abilities: [{ trigger: "afterWin", action: "summonCopy", target: "self", count: 1 }],
                        gold: { on: true, attack: 2, health: 4, abilities: [{ trigger: "afterWin", action: "summonCopy", target: "self", count: 1, exact: true }] } },
     mother_hippo:    { name: "Mother Hippo", tier: 3, tribe: BEAST, attack: 3, health: 4, text: "", abilities: [{ trigger: "startOfCombat", action: "randomKeyword", target: "tokens" }],
                        gold: { on: true, attack: 6, health: 8, abilities: [{ trigger: "startOfCombat", action: "mkKw", mkw: "random", n: 1, target: "tokens" }] } },
     reaper_lion:     { name: "Reaper Lion", tier: 3, tribe: BEAST, attack: 4, health: 3, mk: { kw: ["tough"] }, text: "", abilities: [{ trigger: "startOfCombat", action: "enemyKw" }],
                        gold: { on: true, attack: 6, health: 8, abilities: [{ trigger: "startOfCombat", action: "enemyKw", asMk: true }] } },
-    hyena_scavenger: { name: "Hyena Scavenger", tier: 3, tribe: BEAST, attack: 3, health: 3, text: "", abilities: [{ trigger: "battlecry", action: "mkTake", mkeep: "eat", target: "pickFriend", tmk: true }] },
     guardian_giraffe:{ name: "Guardian Giraffe", tier: 4, tribe: BEAST, attack: 2, health: 7, taunt: true, text: "", abilities: [{ trigger: "battlecry", action: "mkKw", mkw: "shield", n: 1, target: "pickFriend", ttribe: BEAST }],
                        gold: { on: true, attack: 4, health: 14, abilities: [{ trigger: "battlecry", action: "mkKw", mkw: "shield", n: 1, target: "pickFriend", ttribe: BEAST }] } },
     zebu_traveler:   { name: "Zebu Traveler", tier: 4, tribe: BEAST, attack: 5, health: 3, text: "", abilities: [{ trigger: "onAttack", action: "absorb", target: "rightmost", count: 1, ttribe: BEAST }],
                        gold: { on: true, attack: 10, health: 6, abilities: [{ trigger: "onAttack", action: "absorb", target: "rightmost", count: 2, ttribe: BEAST }] } },
-    sky_shepherd:    { name: "Sky Shepherd", tier: 4, tribe: BEAST, attack: 3, health: 4, text: "",
-                       customText: "Battlecry: Summon a Birdie. Your tokens have a Flying marker.", customTextFr: "Cri de guerre : invoque un Oisillon. Vos jetons ont un marqueur Vol.",
-                       abilities: [{ trigger: "battlecry", action: "summon", card: "birdie", count: 1 }, { trigger: "battlecry", action: "mkKw", mkw: "flying", n: 1, target: "tokens" },
-                         { trigger: "endOfTurn", action: "mkKw", mkw: "flying", n: 1, target: "tokens" }, { trigger: "onSummonAlly", action: "mkKw", mkw: "flying", n: 1, target: "trigger", ttok: "only" }] },
     curious_buffalo: { name: "Curious Buffalo", tier: 5, tribe: BEAST, attack: 6, health: 5, cleave: true, text: "" },
     elephant_king:   { name: "Elephant King", tier: 5, tribe: BEAST, attack: 5, health: 6, mk: { kw: ["tough"] }, text: "",
                        abilities: [{ trigger: "activate", actCost: 1, action: "sacrifice", target: "pickFriend", give: "" }, { trigger: "andThen", action: "mkKw", mkw: "random", n: 1, target: "self" }],
@@ -325,85 +319,6 @@
                          { trigger: "afterWin", action: "absorb", target: "oldest", ttribe: BEAST }, { trigger: "afterWin", action: "mkTake", mkeep: "copy", target: "oldest", ttribe: BEAST }],
                        gold: { on: true, attack: 14, health: 16, abilities: [{ trigger: "battlecry", action: "absorb", target: "oldest", ttribe: BEAST, repeat: 2 }, { trigger: "battlecry", action: "mkTake", mkeep: "copy", target: "oldest", ttribe: BEAST, repeat: 2 },
                          { trigger: "afterWin", action: "absorb", target: "oldest", ttribe: BEAST, repeat: 2 }, { trigger: "afterWin", action: "mkTake", mkeep: "copy", target: "oldest", ttribe: BEAST, repeat: 2 }] } },
-    great_vulture:   { name: "Great Vulture", tier: 6, tribe: BEAST, attack: 6, health: 7, text: "",
-                       abilities: [{ trigger: "onAllyDeath", action: "mkTake", target: "trigger" }, { trigger: "onEnemyDeath", action: "mkTake", target: "trigger" }] },
-    // ---------------- Constructs
-    tin_squire:     { aff: ["steam"], name: "Tin Squire", tier: 1, tribe: CONSTRUCT, attack: 1, health: 2, shield: true, text: "" },
-    gear_golem:     { aff: ["steam"], name: "Gear Golem", tier: 2, tribe: CONSTRUCT, attack: 2, health: 4, taunt: true, battlecry: "buff_random_construct", text: "Battlecry: Give another friendly Construct +{n}/+{n}.", n: 2 },
-    arc_sentinel:   { aff: ["steam", "earth"], name: "Arc Sentinel", tier: 3, tribe: CONSTRUCT, attack: 3, health: 3, taunt: true, shield: true, text: "" },
-    twinblade:      { aff: ["steam"], name: "Twin-Blade Automaton", tier: 4, tribe: CONSTRUCT, attack: 3, health: 4, windfury: true, shield: true, text: "" },
-    shield_forge:   { aff: ["steam"], name: "Shield Forge", tier: 5, tribe: CONSTRUCT, attack: 4, health: 6, onShieldLost: "forge", text: "After a friendly Shield breaks, give your Constructs +{n} Attack.", n: 2 },
-    titan_engine:   { aff: ["steam"], name: "Titan Engine", tier: 6, tribe: CONSTRUCT, attack: 6, health: 8, startOfCombat: "shield_constructs", text: "Start of Combat: Give your other Constructs Shield.", textG: "Start of Combat: Give your other Constructs Shield and +3/+3." },
-    // ---------------- Spirits
-    grave_moth:     { aff: ["water"], name: "Grave Moth", tier: 1, tribe: SPIRIT, attack: 2, health: 1, reborn: true, text: "" },
-    wailing_shade:  { aff: ["water"], name: "Wailing Shade", tier: 2, tribe: SPIRIT, attack: 3, health: 2, deathrattle: "buff_spirits", text: "Deathrattle: Give your other Spirits +{n}/+{n}.", n: 2 },
-    bone_collector: { aff: ["tar"], name: "Bone Collector", tier: 3, tribe: SPIRIT, attack: 2, health: 4, onAllyDeath: "grow", text: "After a friendly minion dies in combat, gain +{n}/+{n}.", n: 1 },
-    crypt_warden:   { aff: ["earth"], name: "Crypt Warden", tier: 4, tribe: SPIRIT, attack: 3, health: 5, onReborn: "reborn_buff", text: "After a friendly minion is Reborn, give it +{n}/+{n}.", n: 4 },
-    ash_lich:       { aff: ["tar"], name: "Ash Lich", tier: 5, tribe: SPIRIT, attack: 4, health: 6, reborn: true, deathrattle: "buff_spirits", text: "Deathrattle: Give your other Spirits +{n}/+{n}.", n: 2 },
-    pale_sovereign: { aff: ["water"], name: "Pale Sovereign", tier: 6, tribe: SPIRIT, attack: 7, health: 7, deathrattle: "spirits_reborn", text: "Deathrattle: Give your other Spirits Reborn.", textG: "Deathrattle: Give your other Spirits Reborn and +3/+3." },
-    // ---------------- Corsairs
-    deck_scamp:     { aff: ["water"], name: "Deck Scamp", tier: 1, tribe: CORSAIR, attack: 2, health: 1, onSell: "scamp", text: "Sells for {n} extra gold.", n: 2 },
-    bounty_captain: { aff: ["tar"], name: "Bounty Captain", tier: 2, tribe: CORSAIR, attack: 3, health: 2, onBuy: "corsair_rally", text: "After you buy a Corsair, give your Corsairs +{n}/+{n}.", n: 1 },
-    gold_smuggler:  { aff: ["water"], name: "Gold Smuggler", tier: 3, tribe: CORSAIR, attack: 3, health: 4, battlecry: "next_gold", text: "Battlecry: Gain {n} extra gold next turn.", n: 3 },
-    cannoneer:      { aff: ["tar", "steam"], name: "Cannoneer", tier: 4, tribe: CORSAIR, attack: 4, health: 4, startOfCombat: "cannon", text: "Start of Combat: Deal 3 damage to a random enemy minion.", textG: "Start of Combat: Deal 3 damage to a random enemy minion, twice." },
-    dread_corsair:  { aff: ["tar"], name: "Dread Corsair", tier: 5, tribe: CORSAIR, attack: 5, health: 5, onAttack: "corsair_cheer", text: "Whenever this attacks, give your other Corsairs +{n}/+{n}.", n: 2 },
-    admiral:        { aff: ["water"], name: "Admiral Brinebeard", tier: 6, tribe: CORSAIR, attack: 7, health: 7, endOfTurn: "admiral", text: "At the end of your turn, give your other Corsairs +{n}/+{n}.", n: 4 },
-    // ---------------- Elementals
-    spark_sprite:   { aff: ["steam"], name: "Spark Sprite", tier: 1, tribe: ELEMENTAL, attack: 1, health: 2, battlecry: "free_roll", text: "Battlecry: Your next Refresh is free.", textG: "Battlecry: Your next 2 Refreshes are free." },
-    molten_brute:   { aff: ["earth"], name: "Molten Brute", tier: 2, tribe: ELEMENTAL, attack: 2, health: 3, onPlayOther: "brute", text: "After you play another Elemental, gain +{n}/+{n}.", n: 2 },
-    cinder_chef:    { aff: ["steam"], name: "Cinder Chef", tier: 3, tribe: ELEMENTAL, attack: 3, health: 4, onPlayOther: "chef", text: "After you play another Elemental, minions in the tavern get +{n}/+{n} for the rest of the game.", n: 1 },
-    storm_djinn:    { aff: ["water", "steam"], name: "Storm Djinn", tier: 4, tribe: ELEMENTAL, attack: 4, health: 5, battlecry: "add_spell", text: "Battlecry: Add a random tavern spell to your hand.", textG: "Battlecry: Add 2 random tavern spells to your hand." },
-    magma_titan:    { aff: ["earth", "tar"], name: "Magma Titan", tier: 5, tribe: ELEMENTAL, attack: 5, health: 6, onSpell: "titan", text: "After you cast a tavern spell, gain +{n}/+{n}.", n: 2 },
-    primordial:     { aff: ["steam"], name: "Primordial Flame", tier: 6, tribe: ELEMENTAL, attack: 6, health: 6, battlecry: "flame_all", text: "Battlecry: Give your other Elementals +{n}/+{n}.", n: 4 },
-    // ---------------- Dragons
-    ember_whelp:    { aff: ["tar"], name: "Ember Whelp", tier: 1, tribe: DRAGON, attack: 2, health: 1, startOfCombat: "whelp", text: "Start of Combat: Deal {n} damage to a random enemy minion.", n: 1 },
-    scale_warder:   { aff: ["earth"], name: "Scale Warder", tier: 2, tribe: DRAGON, attack: 2, health: 4, taunt: true, battlecry: "dragon_shield", text: "Battlecry: Give another friendly Dragon Shield.", textG: "Battlecry: Give two other friendly Dragons Shield." },
-    hoard_keeper:   { aff: ["earth"], name: "Hoard Keeper", tier: 3, tribe: DRAGON, attack: 3, health: 4, startOfCombat: "dragons_atk", text: "Start of Combat: Give your other Dragons +{n} Attack.", n: 1 },
-    twin_flame:     { aff: ["steam"], name: "Twin-Flame Drake", tier: 4, tribe: DRAGON, attack: 3, health: 5, startOfCombat: "twin_flame", text: "Start of Combat: Deal {n} damage to two random enemy minions.", n: 2 },
-    aurum_wyrm:     { aff: ["earth"], name: "Aurum Wyrm", tier: 5, tribe: DRAGON, attack: 4, health: 5, shield: true, startOfCombat: "dragons_shield", text: "Start of Combat: Give your other Dragons Shield.", textG: "Start of Combat: Give your other Dragons Shield and +2/+2." },
-    cinderwing:     { aff: ["tar"], name: "Cinderwing Ancient", tier: 6, tribe: DRAGON, attack: 6, health: 7, startOfCombat: "breath", text: "Start of Combat: Deal {n} damage to all enemy minions.", n: 2 },
-    // ---------------- Tidekin
-    reef_crier:     { aff: ["coral"], name: "Reef Crier", tier: 1, tribe: TIDEKIN, attack: 2, health: 2, battlecry: "double_next", text: "Battlecry: Your next Battlecry this turn triggers twice.", textG: "Battlecry: Your next two Battlecries this turn trigger twice." },
-    shell_drummer:  { aff: ["coral"], name: "Shell Drummer", tier: 2, tribe: TIDEKIN, attack: 2, health: 3, onPlayOther: "drummer", text: "After you play a minion with a Battlecry, gain +{n}/+{n}.", n: 1 },
-    tide_caller:    { aff: ["coral", "water"], name: "Tide Caller", tier: 3, tribe: TIDEKIN, attack: 3, health: 4, battlecry: "tide_rally", text: "Battlecry: Give your other Tidekin +{n}/+{n}.", n: 2 },
-    pearl_diver:    { aff: ["coral", "water"], name: "Pearl Diver", tier: 4, tribe: TIDEKIN, attack: 4, health: 4, battlecry: "add_battlecry", text: "Battlecry: Add a random minion with a Battlecry to your hand.", textG: "Battlecry: Add 2 random minions with a Battlecry to your hand." },
-    deep_chanter:   { aff: ["water"], name: "Deep Chanter", tier: 5, tribe: TIDEKIN, attack: 4, health: 6, chanter: true, text: "Your Battlecries trigger twice.", textG: "Your Battlecries trigger three times." },
-    leviathan:      { aff: ["coral", "water"], name: "Leviathan Herald", tier: 6, tribe: TIDEKIN, attack: 6, health: 8, battlecry: "leviathan", text: "Battlecry: Give your minions +1/+1 for each Battlecry you played this game (up to 8).", textG: "Battlecry: Give your minions +2/+2 for each Battlecry you played this game (up to 8)." },
-    // ---------------- Infernals
-    grubling_imp:   { aff: ["tar"], name: "Grubling Imp", tier: 1, tribe: INFERNAL, attack: 3, health: 1, battlecry: "lose_health", text: "Battlecry: Your hero loses 2 Health." },
-    hungering_fiend:{ aff: ["tar"], name: "Hungering Fiend", tier: 2, tribe: INFERNAL, attack: 2, health: 2, battlecry: "devour", text: "Battlecry: Devour a random minion in the tavern.", textG: "Battlecry: Devour 2 random minions in the tavern." },
-    soul_glutton:   { aff: ["tar"], name: "Soul Glutton", tier: 3, tribe: INFERNAL, attack: 3, health: 4, onDevour: "glutton", text: "After you Devour, give your other Infernals +{n}/+{n}.", n: 1 },
-    pit_butcher:    { aff: ["earth"], name: "Pit Butcher", tier: 4, tribe: INFERNAL, attack: 4, health: 5, endOfTurn: "butcher", text: "At the end of your turn, Devour a random minion in the tavern.", textG: "At the end of your turn, Devour 2 random minions in the tavern." },
-    abyssal_maw:    { aff: ["tar"], name: "Abyssal Maw", tier: 5, tribe: INFERNAL, attack: 5, health: 6, maw: true, text: "Devouring gives one and a half times the stats.", textG: "Devouring gives double the stats." },
-    lord_of_cinders:{ aff: ["tar"], name: "Lord of Cinders", tier: 6, tribe: INFERNAL, attack: 7, health: 7, battlecry: "devour_all", text: "Battlecry: Devour 3 random minions in the tavern.", textG: "Battlecry: Devour 3 random minions in the tavern for twice the stats." },
-    // ---------------- Neutral
-    lantern_keeper: { aff: ["coral"], name: "Lantern Keeper", tier: 1, tribe: NEUTRAL, attack: 2, health: 2, battlecry: "buff_random_friend", text: "Battlecry: Give another friendly minion +{n}/+{n}.", n: 1 },
-    tavern_bard:    { name: "Tavern Bard", tier: 2, tribe: NEUTRAL, attack: 2, health: 3, endOfTurn: "buff_random_friend", text: "At the end of your turn, give another friendly minion +{n}/+{n}.", n: 1 },
-    rally_herald:   { aff: ["coral"], name: "Rallying Herald", tier: 4, tribe: NEUTRAL, attack: 3, health: 5, battlecry: "herald", text: "Battlecry: Give your minions +{n}/+{n} for each different tribe among them.", n: 1 },
-    great_warden:   { aff: ["earth"], name: "Great Warden", tier: 5, tribe: NEUTRAL, attack: 5, health: 7, taunt: true, startOfCombat: "buff_all_friends", text: "Start of Combat: Give your other minions +{n}/+{n}.", n: 1 },
-    grand_champion: { name: "Grand Champion", tier: 6, tribe: NEUTRAL, attack: 6, health: 10, taunt: true, shield: true, text: "" },
-    // ---------------- Affinity cards (neutral: they show up in every lobby)
-    coral_bud:        { aff: ["coral"], name: "Coral Bud", tier: 1, tribe: NEUTRAL, attack: 1, health: 2, text: "", abilities: [{ trigger: "pulse", action: "buff", target: "randomFriend", count: 1, a: 1, h: 1 }] },
-    gilded_polyp:     { aff: ["coral"], name: "Gilded Polyp", tier: 2, tribe: NEUTRAL, attack: 2, health: 2, text: "", abilities: [{ trigger: "pulse", action: "gold", n: 1, limit: "turn" }] },
-    catalyst_coral:   { aff: ["coral"], name: "Catalyst Coral", tier: 2, tribe: NEUTRAL, attack: 1, health: 3, text: "", abilities: [{ trigger: "pulse", action: "charge", target: "allFriends", n: 1 }] },
-    reef_echo:        { aff: ["coral", "water"], name: "Reef Echo", tier: 3, tribe: NEUTRAL, attack: 2, health: 4, text: "", abilities: [{ trigger: "pulse", action: "pulseDouble", n: 1 }] },
-    nurturing_polyp:  { aff: ["coral"], name: "Nurturing Polyp", tier: 3, tribe: NEUTRAL, attack: 2, health: 5, text: "", abilities: [{ trigger: "pulse", action: "buff", target: "allFriends", taff: "coral", a: 1, h: 1 }] },
-    reef_mother:      { aff: ["coral"], name: "Reef Mother", tier: 4, tribe: NEUTRAL, attack: 3, health: 5, text: "", abilities: [{ trigger: "pulse", action: "addCard", card: "coral_sprout", count: 1, every: 3 }] },
-    reef_warden:      { aff: ["coral"], name: "Reef Warden", tier: 5, tribe: NEUTRAL, attack: 4, health: 6, text: "", abilities: [{ trigger: "pulse", action: "buff", target: "adjacent", a: 2, h: 2 }] },
-    valve_sprite:     { aff: ["steam"], name: "Valve Sprite", tier: 1, tribe: NEUTRAL, attack: 1, health: 2, text: "", abilities: [{ trigger: "endOfTurn", action: "gainPressure", n: 1 }] },
-    piston_brute:     { aff: ["steam"], name: "Piston Brute", tier: 2, tribe: NEUTRAL, attack: 2, health: 3, text: "", abilities: [{ trigger: "battlecry", action: "gainPressure", n: 2 }] },
-    unstable_boiler:  { aff: ["steam"], name: "Unstable Boiler", tier: 3, tribe: NEUTRAL, attack: 3, health: 5, text: "", abilities: [{ trigger: "onSpell", action: "gainPressure", n: 1 }, { trigger: "battlecry", action: "buff", target: "pickFriend", a: 5, h: 5, pcost: 3 }] },
-    pressure_titan:   { aff: ["steam"], name: "Pressure Titan", tier: 5, tribe: NEUTRAL, attack: 5, health: 5, text: "", abilities: [{ trigger: "battlecry", action: "buff", target: "allFriendsSelf", a: 1, h: 1, pcost: 1, pall: true }] },
-    tar_spitter:      { aff: ["tar"], name: "Tar Spitter", tier: 2, tribe: NEUTRAL, attack: 3, health: 2, text: "", abilities: [{ trigger: "startOfCombat", action: "mire", target: "randomEnemy", count: 1 }] },
-    sticky_slug:      { aff: ["tar"], name: "Sticky Slug", tier: 3, tribe: NEUTRAL, attack: 3, health: 7, taunt: true, text: "", abilities: [{ trigger: "onAttacked", action: "mire", target: "trigger" }] },
-    bitumen_devourer: { aff: ["tar"], name: "Bitumen Devourer", tier: 5, tribe: NEUTRAL, attack: 5, health: 8, text: "", abilities: [{ trigger: "onMiredDeath", action: "permBuff", target: "self", a: 3, h: 3 }] },
-    brook_nymph:      { aff: ["water"], name: "Brook Nymph", tier: 1, tribe: NEUTRAL, attack: 2, health: 1, text: "", abilities: [{ trigger: "battlecry", action: "buff", target: "self", a: 1, h: 1 }] },
-    tide_shaper:      { aff: ["water"], name: "Tide Shaper", tier: 2, tribe: NEUTRAL, attack: 2, health: 3, text: "", abilities: [{ trigger: "afterReflux", action: "gold", n: 1 }] },
-    cascade_spirit:   { aff: ["water"], name: "Cascade Spirit", tier: 4, tribe: NEUTRAL, attack: 4, health: 6, text: "", abilities: [{ trigger: "afterReflux", action: "buff", target: "allFriends", taff: "water", a: 2, h: 2 }] },
-    pebble_mole:      { aff: ["earth"], name: "Pebble Mole", tier: 1, tribe: NEUTRAL, attack: 1, health: 2, text: "", abilities: [{ trigger: "afterFoundation", action: "buff", target: "self", a: 1, h: 1 }] },
-    stone_golem:      { aff: ["earth"], name: "Stone Golem", tier: 2, tribe: NEUTRAL, attack: 2, health: 4, taunt: true, text: "", abilities: [{ trigger: "battlecry", action: "buildFoundation", target: "self" }] },
-    ancestral_monolith: { aff: ["earth"], name: "Ancestral Monolith", tier: 4, tribe: NEUTRAL, attack: 4, health: 8, text: "", abilities: [{ trigger: "startOfCombat", action: "buff", target: "self", a: 5, h: 5, per: "foundations" }] },
-    telluric_architect: { aff: ["earth"], name: "Telluric Architect", tier: 6, tribe: NEUTRAL, attack: 6, health: 10, text: "", abilities: [{ trigger: "endOfTurn", action: "buff", target: "foundationMinions", a: 2, h: 2 }] },
   };
   const TOKENS = {
     pup: { name: "Pup", tier: 1, tribe: BEAST, attack: 1, health: 1, token: true, text: "" },
@@ -422,6 +337,19 @@
     mirror:      { name: "Mirror Draught", tier: 4, cost: 4, target: true, text: "Add a plain copy of a friendly minion to your hand." },
     venom_vial:  { name: "Venom Vial", tier: 4, cost: 3, target: true, text: "Give a minion Venomous." },
     war_banner:  { name: "War Banner", tier: 5, cost: 3, target: false, text: "Give minions of your most common tribe +3/+3." },
+    // v78 (with the Beasts): skies give stat markers, the Evolutions a keyword, and Home + Sweet = Home Sweet Home
+    strength:        { name: "Strength", tier: 1, cost: 1, target: false, custom: true, abilities: [{ trigger: "cast", action: "nextBuyBuff", a: 1, h: 2, count: 1 }] },
+    blue_sky:        { name: "Blue Sky", tier: 2, cost: 2, target: true, custom: true, abilities: [{ trigger: "cast", action: "mkPlus", n: 1, a: 2, h: 2, target: "chosen" }] },
+    dawn_sky:        { name: "Dawn Sky", tier: 2, cost: 2, target: true, custom: true, abilities: [{ trigger: "cast", action: "mkPlus", n: 1, a: 1, h: 3, target: "chosen" }] },
+    morning_sky:     { name: "Morning Sky", tier: 2, cost: 2, target: true, custom: true, abilities: [{ trigger: "cast", action: "mkPlus", n: 1, a: 3, h: 1, target: "chosen" }] },
+    night_sky:       { name: "Night Sky", tier: 2, cost: 2, target: false, custom: true, abilities: [{ trigger: "cast", action: "mkPlus", n: 1, a: 1, h: 1, target: "randomFriendSelf", count: 2 }] },
+    evo_stealth:     { name: "Evolution", tier: 3, cost: 1, target: true, custom: true, abilities: [{ trigger: "cast", action: "keyword", kw: "stealth", target: "chosen" }] },
+    evo_tough:       { name: "Evolution", tier: 3, cost: 1, target: true, custom: true, abilities: [{ trigger: "cast", action: "keyword", kw: "tough", target: "chosen" }] },
+    evo_windfury:    { name: "Evolution", tier: 4, cost: 2, target: true, custom: true, abilities: [{ trigger: "cast", action: "keyword", kw: "windfury", target: "chosen" }] },
+    evo_shield:      { name: "Evolution", tier: 4, cost: 2, target: true, custom: true, abilities: [{ trigger: "cast", action: "keyword", kw: "shield", target: "chosen" }] },
+    home:            { name: "Home", tier: 5, cost: 3, target: true, custom: true, abilities: [{ trigger: "cast", action: "doubleStats", stat: "health", target: "chosen" }] },
+    sweet:           { name: "Sweet", tier: 5, cost: 3, target: true, custom: true, abilities: [{ trigger: "cast", action: "doubleStats", stat: "attack", target: "chosen" }] },
+    home_sweet_home: { name: "Home Sweet Home", tier: 6, cost: 3, target: true, custom: true, abilities: [{ trigger: "cast", action: "doubleStats", stat: "both", target: "chosen" }] },
   };
   const KEYWORD_INFO = {
     taunt: "Taunt: enemies must attack this minion first.",
@@ -442,28 +370,37 @@
   const KW_RANDOM_COMBAT = KW_LIST.filter((k) => k !== "stealth" && k !== "magnetic");
   // ---------------------------------------------------------------- Markers (v78)
   // Like counters in a card game, a marker sits ON a minion and stays there until something moves it:
-  //  - +1/+1 markers stack; each one is +1 Attack and +1 Health of the minion (part of its stats).
+  //  - stat markers (+1/+1, and other sizes like +2/+2, +1/+3, +3/+1) stack; each one adds its stats (part of the minion's stats).
   //  - keyword markers (one per keyword): the minion has that keyword as long as the marker is on it.
   // A minion keeps its markers from turn to turn; markers given or taken in combat are kept back in the tavern.
-  // m.mk = { p: number of +1/+1 markers, kw: { keyword: 1 } } or null.
+  // m.mk = { st: { "a/h": how many }, kw: { keyword: 1 } } or null.
   const MK_KWS = () => KW_LIST.filter((k) => k !== "magnetic");
-  const mkN = (m) => (m && m.mk ? (m.mk.p || 0) + Object.keys(m.mk.kw || {}).length : 0);
+  const mkKey = (a, h) => `${a | 0}/${h | 0}`;
+  const mkParse = (k) => { const [a, h] = String(k).split("/").map(Number); return [a || 0, h || 0]; };
+  const mkSt = (m) => (m && m.mk && m.mk.st) || {};
+  const mkStN = (m) => Object.values(mkSt(m)).reduce((t, n) => t + n, 0);
+  const mkN = (m) => (m && m.mk ? mkStN(m) + Object.keys(m.mk.kw || {}).length : 0);
   const mkKws = (m) => (m && m.mk ? Object.keys(m.mk.kw || {}) : []);
-  const mkCopy = (mk) => (mk ? { p: mk.p || 0, kw: Object.assign({}, mk.kw) } : null);
+  const mkCopy = (mk) => (mk ? { st: Object.assign({}, mk.st), kw: Object.assign({}, mk.kw) } : null);
+  // the stats all its stat markers give: [Attack, Health]
+  function mkStatAH(m) { let a = 0, h = 0; for (const [k, n] of Object.entries(mkSt(m))) { const [x, y] = mkParse(k); a += x * n; h += y * n; } return [a, h]; }
   // a keyword the card itself has (not given by a marker): it stays when the marker leaves
   function mkInnate(m, k) { const d = CARDS[m.cardId] || TOKENS[m.cardId]; return !!(d && d[k] && !(d.mk && (d.mk.kw || []).includes(k))) || !!(m.ckwKw && m.ckwKw[k]); }
-  // +n (or -n) +1/+1 markers; returns how many really moved. Losing markers never takes a minion below 1 Health.
-  function mkAddP(m, n) {
+  // +n (or -n) stat markers of one size ("1/1", "2/2"…); returns how many really moved. Losing markers never takes a minion below 1 Health.
+  function mkAddStat(m, key, n) {
     if (!m || !n) return 0;
-    const c = m.mk || (m.mk = { p: 0, kw: {} });
-    if (n < 0) n = -Math.min(c.p, -n);
+    const c = m.mk || (m.mk = { st: {}, kw: {} }), st = c.st || (c.st = {});
+    if (n < 0) n = -Math.min(st[key] || 0, -n);
     if (!n) return 0;
-    c.p += n; m.attack = Math.max(0, m.attack + n); m.maxHealth += n; m.health = Math.max(1, m.health + n); if (m.maxHealth < 1) m.maxHealth = 1;
+    const [a, h] = mkParse(key);
+    st[key] = (st[key] || 0) + n; if (!st[key]) delete st[key];
+    m.attack = Math.max(0, m.attack + a * n); m.maxHealth += h * n; m.health = Math.max(1, m.health + h * n); if (m.maxHealth < 1) m.maxHealth = 1;
     return n;
   }
+  const mkAddP = (m, n) => mkAddStat(m, "1/1", n);
   function mkAddKw(m, k) {
     if (!m || !MK_KWS().includes(k)) return false;
-    const c = m.mk || (m.mk = { p: 0, kw: {} });
+    const c = m.mk || (m.mk = { st: {}, kw: {} });
     if (c.kw[k]) return false;
     c.kw[k] = 1; m[k] = true; return true;
   }
@@ -471,29 +408,36 @@
     const c = m && m.mk; if (!c || !c.kw[k]) return false;
     delete c.kw[k]; if (!mkInnate(m, k)) m[k] = false; return true;
   }
-  // the markers a card starts with: def.mk = { p, kw: [...] }
-  function mkStart(m, d) { const s = d && d.mk; if (!s) return; for (const k of s.kw || []) mkAddKw(m, k); if (s.p > 0) mkAddP(m, s.p); }
-  // one marker from a onto b. kind: "p" (+1/+1), "kw" (a keyword marker) or "" (any). Returns "p", a keyword, or "".
+  // the markers a card starts with: def.mk = { p: +1/+1 markers, st: { "2/2": n }, kw: [...] }
+  function mkStart(m, d) { const s = d && d.mk; if (!s) return; for (const k of s.kw || []) mkAddKw(m, k); if (s.p > 0) mkAddP(m, s.p); for (const k in s.st || {}) if (s.st[k] > 0) mkAddStat(m, k, s.st[k]); }
+  // the markers one can take off a minion: "s:a/h" for a stat marker, or a keyword. kind: "p" (stat markers), "kw" or "" (any)
+  function mkOpts(a, kind, b) {
+    if (!a || !a.mk) return [];
+    return [...(kind !== "kw" ? Object.keys(mkSt(a)).filter((k) => a.mk.st[k] > 0).map((k) => "s:" + k) : []), ...(kind !== "p" ? mkKws(a).filter((k) => !(b && b.mk && b.mk.kw[k])) : [])];
+  }
+  // one marker from a onto b (or just off a when b is null). Returns "s:a/h", a keyword, or "".
   function mkMoveOne(a, b, kind, rng, keep) {
     if (!a || !a.mk || a === b) return "";
-    const kws = mkKws(a).filter((k) => !(b.mk && b.mk.kw[k]) && k !== "magnetic"), canP = a.mk.p > 0;
-    const opts = [...(kind !== "kw" && canP ? ["p"] : []), ...(kind !== "p" ? kws : [])];
-    if (!opts.length) return "";
+    const opts = mkOpts(a, kind, b); if (!opts.length) return "";
     const pick = opts.length === 1 ? opts[0] : rng.pick(opts);
-    if (pick === "p") { if (!keep) mkAddP(a, -1); mkAddP(b, 1); }
-    else { if (!keep) mkDelKw(a, pick); mkAddKw(b, pick); }
+    if (pick.startsWith("s:")) { const key = pick.slice(2); if (!keep) mkAddStat(a, key, -1); if (b) mkAddStat(b, key, 1); }
+    else { if (!keep) mkDelKw(a, pick); if (b) mkAddKw(b, pick); }
     return pick;
   }
-  // every marker of a onto b (keep: b gains a copy and a keeps them). times multiplies the +1/+1 markers gained.
+  // every marker of a onto b (keep: b gains a copy and a keeps them). times multiplies the stat markers gained.
   function mkTakeAll(a, b, keep, times = 1) {
-    if (!a || !a.mk || a === b) return { p: 0, kw: [] };
-    const p = a.mk.p || 0, kws = mkKws(a);
-    if (!keep) { if (p) mkAddP(a, -p); for (const k of kws) mkDelKw(a, k); }
-    const got = { p: p ? mkAddP(b, p * Math.max(1, times)) : 0, kw: kws.filter((k) => mkAddKw(b, k)) };
+    const got = { st: {}, kw: [] };
+    if (!a || !a.mk || a === b) return got;
+    const st = Object.assign({}, mkSt(a)), kws = mkKws(a);
+    if (!keep) { for (const k in st) mkAddStat(a, k, -st[k]); for (const k of kws) mkDelKw(a, k); }
+    for (const k in st) { const n = mkAddStat(b, k, st[k] * Math.max(1, times)); if (n) got.st[k] = n; }
+    got.kw = kws.filter((k) => mkAddKw(b, k));
     return got;
   }
-  function mkApply(m, pb) { if (pb.mkp) mkAddP(m, pb.mkp); for (const k of pb.mka || []) mkAddKw(m, k); for (const k of pb.mkd || []) mkDelKw(m, k); }
-  const mkLabel = (got) => [got.p ? `+${got.p} marker${got.p > 1 ? "s" : ""}` : "", ...(got.kw || []).map((k) => kwName(k))].filter(Boolean).join(" · ") || "Markers";
+  function mkApply(m, pb) { for (const k in pb.mks || {}) mkAddStat(m, k, pb.mks[k]); for (const k of pb.mka || []) mkAddKw(m, k); for (const k of pb.mkd || []) mkDelKw(m, k); }
+  const mkStLabel = (st) => Object.entries(st || {}).map(([k, n]) => { const [a, h] = mkParse(k); return `${n > 1 ? n + "× " : ""}+${a}/+${h}`; }).join(" ");
+  const mkLabel = (got) => [mkStLabel(got.st), ...(got.kw || []).map((k) => kwName(k))].filter(Boolean).join(" · ") || "Markers";
+  const mkOneLabel = (w) => (w.startsWith("s:") ? mkStLabel({ [w.slice(2)]: 1 }) + " marker" : kwName(w) + " marker");
   // a card's golden version: its own stats and effects when the meta sets them (card editor, Gold tab), else everything x2
   const goldOf = (d) => (d && d.gold && d.gold.on ? d.gold : null);
   const GOLD_ABS = new WeakMap();
@@ -614,7 +558,7 @@
     absorb:     { label: "Gain the Attack / Health of other minions", fields: ["target"] },
     copyKeywords: { label: "Gain the keywords of other minions", fields: ["target"] },
     // markers (v78): they sit on a minion and stay there, from turn to turn, even when given in combat
-    mkPlus:     { label: "Markers: give +1/+1 markers", fields: ["n", "target"] },
+    mkPlus:     { label: "Markers: give stat markers (+1/+1, +2/+2…)", fields: ["n", "a", "target"] },
     mkKw:       { label: "Markers: give a keyword marker", fields: ["mkw", "n", "target"] },
     mkMove:     { label: "Markers: move markers from other minions onto this one", fields: ["n", "mkind", "target"] },
     mkTake:     { label: "Markers: gain all the markers of other minions", fields: ["mkeep", "target"] },
@@ -1179,11 +1123,11 @@
       case "refreshUp": body = `refresh the tavern with minions from ${(ab.n || 1) === 1 ? "one tier" : (ab.n || 1) + " tiers"} higher`; break;
       case "passStats": body = `give ${targetText(ab)} the Attack and Health of ${ab.trigger === "onSell" ? "this" : ab.trigger === "onSellOther" ? "the sold minion" : "the minion that triggered it"}`; break;
       case "randomKeyword": body = `give ${targetText(ab)} a random keyword`; break;
-      case "mkPlus": { const m = Math.max(1, ab.n || 1) * k; body = `give ${targetText(ab)} ${m === 1 ? "a +1/+1 marker" : m + " +1/+1 markers"}`; break; }
+      case "mkPlus": { const m = Math.max(1, ab.n || 1) * k, z = `+${ab.a == null ? 1 : ab.a}/+${ab.h == null ? 1 : ab.h}`; body = `give ${targetText(ab)} ${m === 1 ? "a " + z + " marker" : m + " " + z + " markers"}`; break; }
       case "mkKw": { const m = Math.max(1, ab.n || 1) * k; body = !ab.mkw || ab.mkw === "random" ? `give ${targetText(ab)} ${m === 1 ? "a random keyword marker" : m + " random keyword markers"}` : `give ${targetText(ab)} a ${kwName(ab.mkw)} marker`; break; }
-      case "mkMove": { const m = Math.max(1, ab.n || 1) * k, w = ab.mkind === "p" ? "+1/+1 " : ab.mkind === "kw" ? "keyword " : ""; body = `move ${m === 1 ? "a " + w + "marker" : m + " " + w + "markers"} from ${targetText(ab)} onto this minion`; break; }
-      case "mkRemove": { const m = Math.max(1, ab.n || 1) * k, w = ab.mkind === "p" ? "+1/+1 " : ab.mkind === "kw" ? "keyword " : ""; body = `remove ${m === 1 ? "a " + w + "marker" : m + " " + w + "markers"} from ${targetText(ab)}`; break; }
-      case "mkTake": body = (ab.mkeep === "copy" ? `this minion gains a copy of the markers of ${targetText(ab)}` : ab.mkeep === "eat" ? `destroy ${targetText(ab)} and gain all its markers` : `this minion takes all the markers of ${targetText(ab)}`) + (k > 1 ? ` (${k}x the +1/+1 markers)` : ""); break;
+      case "mkMove": { const m = Math.max(1, ab.n || 1) * k, w = ab.mkind === "p" ? "stat " : ab.mkind === "kw" ? "keyword " : ""; body = `move ${m === 1 ? "a " + w + "marker" : m + " " + w + "markers"} from ${targetText(ab)} onto this minion`; break; }
+      case "mkRemove": { const m = Math.max(1, ab.n || 1) * k, w = ab.mkind === "p" ? "stat " : ab.mkind === "kw" ? "keyword " : ""; body = `remove ${m === 1 ? "a " + w + "marker" : m + " " + w + "markers"} from ${targetText(ab)}`; break; }
+      case "mkTake": body = (ab.mkeep === "copy" ? `this minion gains a copy of the markers of ${targetText(ab)}` : ab.mkeep === "eat" ? `destroy ${targetText(ab)} and gain all its markers` : `this minion takes all the markers of ${targetText(ab)}`) + (k > 1 ? ` (${k}x the stat markers)` : ""); break;
       case "enemyKw": body = `this minion gains ${k > 1 ? k + " random keywords" : "a random keyword"} the enemy warband has${ab.asMk ? (k > 1 ? ", as markers" : ", as a marker") : ""}`; break;
       case "goldRandom": body = `gain 1 to ${Math.max(1, n)} gold at random`; break;
       case "freeBuy": body = n === 1 ? "your next minion costs 0 gold" : `your next ${n} minions cost 0 gold`; break;
@@ -1250,10 +1194,10 @@
     },
     rarity: { common: "Commun", rare: "Rare", epic: "Épique", legendary: "Légendaire" },
     cards: {
-      cute_antelope: ["Antilope mignonne", ""], funny_lemur: ["Lémurien rigolo", ""], lion_mother: ["Mère lionne", ""], proud_bird: ["Oiseau fier", ""], thieving_magpie: ["Pie voleuse", ""],
-      friendly_zebra: ["Zèbre amical", ""], mother_hippo: ["Mère hippo", ""], reaper_lion: ["Lion faucheur", ""], hyena_scavenger: ["Hyène charognarde", ""], guardian_giraffe: ["Girafe gardienne", ""],
-      zebu_traveler: ["Zébu voyageur", ""], sky_shepherd: ["Berger du ciel", ""], curious_buffalo: ["Buffle curieux", ""], elephant_king: ["Roi éléphant", ""], king_gorilla: ["Roi gorille féroce", ""],
-      old_king: ["Vieux roi", ""], great_vulture: ["Grand vautour", ""], tin_squire: ["Écuyer de fer-blanc", ""], gear_golem: ["Golem à engrenages", "Cri de guerre : Donne +{n}/+{n} à une autre Construction alliée."],
+      cute_antelope: ["Antilope mignonne", ""], funny_lemur: ["Lémurien rigolo", ""], lion_mother: ["Mère lionne", ""], proud_bird: ["Oiseau fier", ""],
+      friendly_zebra: ["Zèbre amical", ""], mother_hippo: ["Mère hippo", ""], reaper_lion: ["Lion faucheur", ""], guardian_giraffe: ["Girafe gardienne", ""],
+      zebu_traveler: ["Zébu voyageur", ""], curious_buffalo: ["Buffle curieux", ""], elephant_king: ["Roi éléphant", ""], king_gorilla: ["Roi gorille féroce", ""],
+      old_king: ["Vieux roi", ""], tin_squire: ["Écuyer de fer-blanc", ""], gear_golem: ["Golem à engrenages", "Cri de guerre : Donne +{n}/+{n} à une autre Construction alliée."],
       arc_sentinel: ["Sentinelle à arc", ""], twinblade: ["Automate à deux lames", ""], shield_forge: ["Forge à boucliers", "Après qu'un Bouclier allié se brise, donne +{n} Attaque à vos Constructions."],
       titan_engine: ["Moteur titan", "Début de combat : Donne Bouclier à vos autres Constructions.", "Début de combat : Donne Bouclier et +3/+3 à vos autres Constructions."],
       grave_moth: ["Phalène des tombes", ""], wailing_shade: ["Ombre gémissante", "Râle d'agonie : Donne +{n}/+{n} à vos autres Esprits."], bone_collector: ["Collecteur d'os", "Après la mort d'un serviteur allié en combat, gagne +{n}/+{n}."],
@@ -1292,6 +1236,8 @@
       recruit: ["Cor de recrutement", "Découvre un serviteur de votre niveau de taverne."], gold_rush: ["Ruée vers l'or", "Au prochain tour, gagne 3 or de plus."], spirit_ward: ["Garde spirituelle", "Donne Renaissance à un serviteur."],
       feast: ["Festin copieux", "Donne +1/+1 à vos serviteurs."], mirror: ["Potion miroir", "Ajoute une copie simple d'un serviteur allié à votre main."], venom_vial: ["Fiole de venin", "Donne Venimeux à un serviteur."],
       war_banner: ["Bannière de guerre", "Donne +3/+3 aux serviteurs de votre tribu la plus nombreuse."],
+      strength: ["Force"], blue_sky: ["Ciel bleu"], dawn_sky: ["Ciel de l'aube"], morning_sky: ["Ciel du matin"], night_sky: ["Ciel nocturne"],
+      evo_stealth: ["Évolution"], evo_tough: ["Évolution"], evo_windfury: ["Évolution"], evo_shield: ["Évolution"],
     },
     heroes: {
       h_marshal: ["Maréchale Varga", "Exercice"], h_tinker: ["Bricoleur Ollo", "Plans de ferraille"], h_sela: ["Capitaine Sela", "Receleuse"], h_pyre: ["Sorcière du bûcher", "Petit bois"], h_moss: ["Jardinier Moss", "Taille"],
@@ -1318,7 +1264,7 @@
       onDevoured: "Quand ce serviteur est Dévoré", passive: "Aura : toujours, tant qu'il est sur votre plateau", gameStart: "Au début de la partie", cast: "Quand lancé", activate: "Activation (clic sur le plateau, coûte de l'or, une fois par tour)",
     },
     actionLabels: {
-      mkPlus: "Marqueurs : donner des marqueurs +1/+1", mkKw: "Marqueurs : donner un marqueur de mot-clé", mkMove: "Marqueurs : déplacer des marqueurs d'autres serviteurs sur celui-ci",
+      mkPlus: "Marqueurs : donner des marqueurs de stats (+1/+1, +2/+2…)", mkKw: "Marqueurs : donner un marqueur de mot-clé", mkMove: "Marqueurs : déplacer des marqueurs d'autres serviteurs sur celui-ci",
       mkTake: "Marqueurs : gagner tous les marqueurs d'autres serviteurs", mkRemove: "Marqueurs : retirer des marqueurs", enemyKw: "Gagner un mot-clé aléatoire de la troupe adverse",
       counter: "Compteur : ajouter à un compteur à vous (Rage, Âmes…) ou le fixer", signal: "Envoyer un signal : les serviteurs qui l'écoutent réagissent",
       foundationAll: "Construire une Fondation sous chaque emplacement (Terre)", foundationGrow: "Stats pour chaque Fondation sous vos serviteurs (Terre)", releasePressure: "Libérer toute la Pression : stats par point (Vapeur)", ebbMore: "Reflux en plus ce tour (Eau)", affStats: "Stats à tous vos serviteurs d'une affinité, plateau et main",
@@ -1572,11 +1518,11 @@
       case "refreshUp": body = `rafraîchit la taverne avec des serviteurs ${(ab.n || 1) === 1 ? "d'un niveau" : "de " + (ab.n || 1) + " niveaux"} au-dessus`; break;
       case "passStats": body = `donne à ${T()} l'Attaque et les PV ${ab.trigger === "onSell" ? "de ce serviteur" : ab.trigger === "onSellOther" ? "du serviteur vendu" : "du serviteur déclencheur"}`; break;
       case "randomKeyword": body = `donne un mot-clé aléatoire à ${T()}`; break;
-      case "mkPlus": { const m = Math.max(1, ab.n || 1) * k; body = `donne ${m === 1 ? "un marqueur +1/+1" : m + " marqueurs +1/+1"} à ${T()}`; break; }
+      case "mkPlus": { const m = Math.max(1, ab.n || 1) * k, z = `+${ab.a == null ? 1 : ab.a}/+${ab.h == null ? 1 : ab.h}`; body = `donne ${m === 1 ? "un marqueur " + z : m + " marqueurs " + z} à ${T()}`; break; }
       case "mkKw": { const m = Math.max(1, ab.n || 1) * k; body = !ab.mkw || ab.mkw === "random" ? `donne ${m === 1 ? "un marqueur de mot-clé aléatoire" : m + " marqueurs de mots-clés aléatoires"} à ${T()}` : `donne un marqueur ${FR.kw[ab.mkw] || kwName(ab.mkw)} à ${T()}`; break; }
-      case "mkMove": { const m = Math.max(1, ab.n || 1) * k, w = ab.mkind === "p" ? " +1/+1" : ab.mkind === "kw" ? " de mot-clé" : ""; body = `déplace ${m === 1 ? "un marqueur" + w : m + " marqueurs" + w} de ${T()} sur ce serviteur`; break; }
-      case "mkRemove": { const m = Math.max(1, ab.n || 1) * k, w = ab.mkind === "p" ? " +1/+1" : ab.mkind === "kw" ? " de mot-clé" : ""; body = `retire ${m === 1 ? "un marqueur" + w : m + " marqueurs" + w} à ${T()}`; break; }
-      case "mkTake": body = (ab.mkeep === "copy" ? `ce serviteur gagne une copie des marqueurs de ${T()}` : ab.mkeep === "eat" ? `détruit ${T()} et gagne tous ses marqueurs` : `ce serviteur prend tous les marqueurs de ${T()}`) + (k > 1 ? ` (marqueurs +1/+1 x${k})` : ""); break;
+      case "mkMove": { const m = Math.max(1, ab.n || 1) * k, w = ab.mkind === "p" ? " de stats" : ab.mkind === "kw" ? " de mot-clé" : ""; body = `déplace ${m === 1 ? "un marqueur" + w : m + " marqueurs" + w} de ${T()} sur ce serviteur`; break; }
+      case "mkRemove": { const m = Math.max(1, ab.n || 1) * k, w = ab.mkind === "p" ? " de stats" : ab.mkind === "kw" ? " de mot-clé" : ""; body = `retire ${m === 1 ? "un marqueur" + w : m + " marqueurs" + w} à ${T()}`; break; }
+      case "mkTake": body = (ab.mkeep === "copy" ? `ce serviteur gagne une copie des marqueurs de ${T()}` : ab.mkeep === "eat" ? `détruit ${T()} et gagne tous ses marqueurs` : `ce serviteur prend tous les marqueurs de ${T()}`) + (k > 1 ? ` (marqueurs de stats x${k})` : ""); break;
       case "enemyKw": body = `ce serviteur gagne ${k > 1 ? k + " mots-clés aléatoires" : "un mot-clé aléatoire"} de la troupe adverse${ab.asMk ? (k > 1 ? ", sous forme de marqueurs" : ", sous forme de marqueur") : ""}`; break;
       case "goldRandom": body = `gagne entre 1 et ${Math.max(1, n)} or au hasard`; break;
       case "freeBuy": body = n === 1 ? "votre prochain serviteur coûte 0 or" : `vos ${n} prochains serviteurs coûtent 0 or`; break;
@@ -1928,7 +1874,7 @@
         uid: this.uid, cardId: this.cardId, name: this.name, tribe: this.tribe, tribes: tribesOf(this).slice(), allTribes: !!this.allTribes, tribeLabel: tribeLabel(this), tier: this.tier,
         attack: this.attack, health: this.health, maxHealth: this.maxHealth,
         baseAttack: this.baseAttack(), baseHealth: this.baseHealth(), golden: this.golden, token: this.token,
-        taunt: this.taunt, shield: this.shield, reborn: this.reborn, windfury: this.windfury, venomous: this.venomous, cleave: !!this.cleave, stealth: !!this.stealth, magnetic: !!this.magnetic, rally: !!this.rally, tough: !!this.tough, flying: !!this.flying, silenced: !!this.silenced, rarity: this.rarity || "common", mk: this.mk && mkN(this) ? { p: this.mk.p || 0, kw: mkKws(this) } : null,
+        taunt: this.taunt, shield: this.shield, reborn: this.reborn, windfury: this.windfury, venomous: this.venomous, cleave: !!this.cleave, stealth: !!this.stealth, magnetic: !!this.magnetic, rally: !!this.rally, tough: !!this.tough, flying: !!this.flying, silenced: !!this.silenced, rarity: this.rarity || "common", mk: this.mk && mkN(this) ? { st: Object.assign({}, mkSt(this)), kw: mkKws(this) } : null,
         activate: this.activation(), actTurn: this.actTurn, vars: this.vars && Object.keys(this.vars).length ? Object.assign({}, this.vars) : null, evoReady: !!this.evoReady, ice: !!this.ice, chill: this.chill || 0, aff: affsOf(this).slice(), mired: this.mired || 0, ckw: (this.ckw || []).filter((k) => CKW[k]).map((k) => ({ id: k, name: CKW[k].name, color: CKW[k].color, icon: CKW[k].icon, tip: CKW[k].tip || CKW[k].abilities.map((ab) => abilityText(ab, this.golden)).join(" ") })), evolve: this.evolveInfo(), gauge: this.evoGauge(), wounds: this.wounds || 0,
         deathrattle: !!this.deathrattle || hasTrig(this, "deathrattle"), soc: !!this.startOfCombat || hasTrig(this, "startOfCombat"), text: this.silenced ? "" : this.text(), keywords: this.keywords(),
       };
@@ -2263,7 +2209,7 @@
 
     sideOf(uid) { return this.sides[0].some(m => m.uid === uid) ? 0 : this.sides[1].some(m => m.uid === uid) ? 1 : -1; }
     // markers changed in combat are written down: the same minion back in the tavern gets the same change (Combat.perm)
-    mkRec(s, m, p, add, del) { if (!m || (!p && !(add && add.length) && !(del && del.length))) return; (this.perm = this.perm || []).push({ side: s, uid: m.uid, a: 0, h: 0, mkp: p || 0, mka: add || [], mkd: del || [] }); }
+    mkRec(s, m, st, add, del) { if (!m || (!(st && Object.keys(st).length) && !(add && add.length) && !(del && del.length))) return; (this.perm = this.perm || []).push({ side: s, uid: m.uid, a: 0, h: 0, mks: st || {}, mka: add || [], mkd: del || [] }); }
 
     // Shield Forge: react to broken shields.
     afterHits(hits) {
@@ -2649,62 +2595,56 @@
           break;
         }
         case "mkPlus": {
-          const ts = T().filter((t) => t.health > 0), nn = Math.max(1, ab.n || 1) * k;
-          for (const t of ts) { const got = mkAddP(t, nn); if (got) this.mkRec(s, t, got); }
-          show(ts, nn, nn, `+${nn} marker${nn > 1 ? "s" : ""}`); break;
+          const ts = T().filter((t) => t.health > 0), nn = Math.max(1, ab.n || 1) * k, key = mkKey(ab.a == null ? 1 : ab.a, ab.h == null ? 1 : ab.h);
+          for (const t of ts) { const got = mkAddStat(t, key, nn); if (got) this.mkRec(s, t, { [key]: got }); }
+          show(ts, 0, 0, mkStLabel({ [key]: nn }) + (nn > 1 ? " markers" : " marker")); break;
         }
         case "mkKw": {
           const ts = T().filter((t) => t.health > 0), nn = Math.max(1, ab.n || 1) * k, got = [], hit = [];
           for (const t of ts) {
             const l = !ab.mkw || ab.mkw === "random" ? pickN(this.rng, KW_RANDOM_COMBAT.filter((x) => !t[x] && !(t.mk && t.mk.kw[x])), nn) : [ab.mkw];
             const added = l.filter((x) => mkAddKw(t, x));
-            if (added.length) { this.mkRec(s, t, 0, added); got.push(...added); hit.push(t); }
+            if (added.length) { this.mkRec(s, t, null, added); got.push(...added); hit.push(t); }
           }
           show(hit, 0, 0, got.length === 1 ? kwName(got[0]) + " marker" : "Markers"); break;
         }
-        case "mkMove": {
-          const nn = Math.max(1, ab.n || 1) * k, from = T().filter((t) => t !== m && mkN(t) > 0), moved = [];
-          for (let i = 0; i < nn;) {
-            const srcs = from.filter((t) => mkN(t) > 0); if (!srcs.length) break;
-            const a = this.rng.pick(srcs), w = mkMoveOne(a, m, ab.mkind || "", this.rng);
-            if (!w) { from.splice(from.indexOf(a), 1); continue; }
-            i++; moved.push(w);
-            if (a.health > 0) { const sa = this.sideOf(a.uid); this.mkRec(sa < 0 ? s : sa, a, w === "p" ? -1 : 0, [], w === "p" ? [] : [w]); }
-            this.mkRec(s, m, w === "p" ? 1 : 0, w === "p" ? [] : [w]);
+        case "mkMove": case "mkRemove": {
+          // mkMove: markers off the targets onto this minion; mkRemove: markers off the targets, gone
+          const nn = Math.max(1, ab.n || 1) * k, moved = [], hit = [], into = ab.action === "mkMove" ? m : null;
+          const rec = (t, w, sign) => { const sd = this.sideOf(t.uid); if (w.startsWith("s:")) this.mkRec(sd < 0 ? s : sd, t, { [w.slice(2)]: sign }); else this.mkRec(sd < 0 ? s : sd, t, null, sign > 0 ? [w] : [], sign < 0 ? [w] : []); };
+          if (into) {
+            const from = T().filter((t) => t !== m && mkN(t) > 0);
+            for (let i = 0; i < nn;) {
+              const srcs = from.filter((t) => mkOpts(t, ab.mkind || "", m).length); if (!srcs.length) break;
+              const a = this.rng.pick(srcs), w = mkMoveOne(a, m, ab.mkind || "", this.rng);
+              if (!w) { from.splice(from.indexOf(a), 1); continue; }
+              i++; moved.push(w); if (a.health > 0) rec(a, w, -1); rec(m, w, 1);
+            }
+            if (moved.length) show([m], 0, 0, moved.length === 1 ? mkOneLabel(moved[0]) : `${moved.length} markers`);
+          } else {
+            for (const a of T().filter((t) => t.health > 0 && mkN(t) > 0)) for (let i = 0; i < nn; i++) { const w = mkMoveOne(a, null, ab.mkind || "", this.rng); if (!w) break; rec(a, w, -1); if (!hit.includes(a)) hit.push(a); }
+            show(hit, 0, 0, "Markers removed");
           }
-          if (moved.length) show([m], 0, 0, moved.length === 1 ? (moved[0] === "p" ? "+1/+1 marker" : kwName(moved[0]) + " marker") : `${moved.length} markers`);
           break;
         }
-        case "mkRemove": {
-          const nn = Math.max(1, ab.n || 1) * k, hit = [];
-          for (const a of T().filter((t) => t.health > 0 && mkN(t) > 0)) {
-            for (let i = 0; i < nn; i++) {
-              const opts = [...(ab.mkind !== "kw" && a.mk.p > 0 ? ["p"] : []), ...(ab.mkind !== "p" ? mkKws(a) : [])]; if (!opts.length) break;
-              const w = this.rng.pick(opts); if (w === "p") mkAddP(a, -1); else mkDelKw(a, w);
-              const sa = this.sideOf(a.uid); this.mkRec(sa < 0 ? s : sa, a, w === "p" ? -1 : 0, [], w === "p" ? [] : [w]);
-              if (!hit.includes(a)) hit.push(a);
-            }
-          }
-          show(hit, 0, 0, "Markers removed"); break;
-        }
         case "mkTake": {
-          const ts = T().filter((t) => t !== m), keep = ab.mkeep === "copy"; let gp = 0; const gk = [];
+          const ts = T().filter((t) => t !== m), keep = ab.mkeep === "copy", all = { st: {}, kw: [] };
           for (const t of ts) {
-            const tp = t.mk ? t.mk.p || 0 : 0, tk = mkKws(t);
-            if (tp || tk.length) {
+            const st = Object.assign({}, mkSt(t)), tk = mkKws(t);
+            if (Object.keys(st).length || tk.length) {
               const g = mkTakeAll(t, m, keep, k);
-              if (!keep && t.health > 0) this.mkRec(this.sideOf(t.uid) < 0 ? s : this.sideOf(t.uid), t, -tp, [], tk);
-              this.mkRec(s, m, g.p, g.kw); gp += g.p; gk.push(...g.kw);
+              if (!keep && t.health > 0) { const neg = {}; for (const x in st) neg[x] = -st[x]; this.mkRec(this.sideOf(t.uid) < 0 ? s : this.sideOf(t.uid), t, neg, [], tk); }
+              this.mkRec(s, m, g.st, g.kw); for (const x in g.st) all.st[x] = (all.st[x] || 0) + g.st[x]; all.kw.push(...g.kw);
             }
             if (ab.mkeep === "eat" && t.health > 0) { const d = t.health; t.health = 0; this.log("shoot", { side: s, source: m.uid, hits: [{ uid: t.uid, dmg: d, popped: false, venom: true }] }); this.killedBy(s, m, [t]); }
           }
-          if (gp || gk.length) show([m], gp, gp, mkLabel({ p: gp, kw: gk }));
+          if (Object.keys(all.st).length || all.kw.length) show([m], 0, 0, mkLabel(all));
           break;
         }
         case "enemyKw": {
           const pool = [...new Set(enemies.filter((e) => e.health > 0).flatMap((e) => KW_LIST.filter((x) => e[x] && x !== "magnetic")))].filter((x) => !m[x]);
           const l = pickN(this.rng, pool, Math.max(1, k));
-          for (const x of l) { if (ab.asMk) { if (mkAddKw(m, x)) this.mkRec(s, m, 0, [x]); } else m[x] = true; }
+          for (const x of l) { if (ab.asMk) { if (mkAddKw(m, x)) this.mkRec(s, m, null, [x]); } else m[x] = true; }
           if (l.length) show([m], 0, 0, l.map((x) => kwName(x)).join(" ") + (ab.asMk ? " marker" : ""));
           break;
         }
@@ -4087,14 +4027,14 @@
         const need = Math.max(2, 3 + (p.mods.triple || 0));
         for (const id in counts) {
           if (counts[id] < need) continue;
-          let ea = 0, eh = 0, removed = [], granted = [], muts = [], evo = 0, evoLv = 0, evoDone = false, mkP = 0;
+          let ea = 0, eh = 0, removed = [], granted = [], muts = [], evo = 0, evoLv = 0, evoDone = false; const mkS = {};
           const kw = {}, mkK = {};
           for (const zone of [p.hand, p.board]) {
             for (let i = 0; i < zone.length && removed.length < need;) {
               const m = zone[i];
               if (!m.isSpell && m.cardId === id && !m.golden) {
-                const mp = m.mk ? m.mk.p || 0 : 0; mkP += mp;
-                ea += m.attack - m.baseAttack() - mp; eh += m.health - m.baseHealth() - mp;
+                const [ma, mh] = mkStatAH(m); for (const [x, n] of Object.entries(mkSt(m))) mkS[x] = (mkS[x] || 0) + n;
+                ea += m.attack - m.baseAttack() - ma; eh += m.health - m.baseHealth() - mh;
                 for (const k of KW_LIST) if (m[k] && !(m.mk && m.mk.kw[k])) kw[k] = true;
                 for (const k of mkKws(m)) mkK[k] = 1;
                 if (m.granted) granted.push(...m.granted); if (m.muts) muts.push(...m.muts);
@@ -4107,7 +4047,7 @@
           g.buff(ea, eh);
           if (g.attack < 0) g.attack = 0; if (g.health < 1) { g.health = 1; } if (g.maxHealth < g.health) g.maxHealth = g.health; // copies whose stats were lowered or swapped can't drag the golden below zero
           Object.assign(g, kw);
-          mkAddP(g, mkP); for (const k in mkK) mkAddKw(g, k); // the markers of the copies stay markers on the golden
+          for (const x in mkS) mkAddStat(g, x, mkS[x]); for (const k in mkK) mkAddKw(g, k); // the markers of the copies stay markers on the golden
           if (granted.length) { g.granted = granted; g.abilities = (g.abilities || []).concat(granted); }
           if (muts.length) g.muts = muts;
           g.evo = evo; g.evoLv = evoLv; g.evoDone = evoDone;
@@ -4487,10 +4427,10 @@
           for (const t of ts()) {
             if (t.golden || t.token || t.isSpell) continue;
             const i = p.board.indexOf(t); if (i < 0) continue;
-            const g = new Minion(t.cardId, true), tp = t.mk ? t.mk.p || 0 : 0;
-            g.buff(t.attack - t.baseAttack() - tp, t.health - t.baseHealth() - tp);
+            const g = new Minion(t.cardId, true), [ta, th] = mkStatAH(t);
+            g.buff(t.attack - t.baseAttack() - ta, t.health - t.baseHealth() - th);
             for (const kw of KW_LIST) if (t[kw] && !(t.mk && t.mk.kw[kw])) g[kw] = true;
-            mkAddP(g, tp); for (const k of mkKws(t)) mkAddKw(g, k);
+            for (const [x, n] of Object.entries(mkSt(t))) mkAddStat(g, x, n); for (const k of mkKws(t)) mkAddKw(g, k);
             p.board[i] = g; made.push(g);
           }
           fx(made, 0, 0, "Golden!"); break;
@@ -4618,7 +4558,10 @@
           for (const t of l) { const opts = KW_LIST.filter((x) => !t[x]); if (!opts.length) continue; const kw = this.rngOf(p).pick(opts); t[kw] = true; got.push(KW_TEXT[kw]); }
           fx(l, 0, 0, got.length === 1 ? got[0] : "Keywords"); break;
         }
-        case "mkPlus": { const l = ts().filter((t) => !t.isSpell), nn = Math.max(1, ab.n || 1) * k; l.forEach((t) => mkAddP(t, nn)); fx(l, nn, nn, `+${nn} marker${nn > 1 ? "s" : ""}`); if (l.length) this.afterBuffed(p, l, m); break; }
+        case "mkPlus": {
+          const l = ts().filter((t) => !t.isSpell), nn = Math.max(1, ab.n || 1) * k, key = mkKey(ab.a == null ? 1 : ab.a, ab.h == null ? 1 : ab.h);
+          l.forEach((t) => mkAddStat(t, key, nn)); fx(l, 0, 0, mkStLabel({ [key]: nn }) + (nn > 1 ? " markers" : " marker")); if (l.length) this.afterBuffed(p, l, m); break;
+        }
         case "mkKw": {
           const l = ts().filter((t) => !t.isSpell), nn = Math.max(1, ab.n || 1) * k, got = [], hit = [];
           for (const t of l) {
@@ -4631,22 +4574,22 @@
           if (ab.action === "mkMove" && !m) break;
           const nn = Math.max(1, ab.n || 1) * k, from = ts().filter((t) => t !== m && !t.isSpell && mkN(t) > 0), rng = this.rngOf(p), moved = [];
           if (ab.action === "mkMove") {
-            for (let i = 0; i < nn;) { const srcs = from.filter((t) => mkN(t) > 0); if (!srcs.length) break; const a = rng.pick(srcs), w = mkMoveOne(a, m, ab.mkind || "", rng); if (!w) { from.splice(from.indexOf(a), 1); continue; } i++; moved.push(w); }
-            if (moved.length) { fx([m], 0, 0, moved.length === 1 ? (moved[0] === "p" ? "+1/+1 marker" : kwName(moved[0]) + " marker") : `${moved.length} markers`); if (moved.includes("p")) this.afterBuffed(p, [m], m); }
+            for (let i = 0; i < nn;) { const srcs = from.filter((t) => mkOpts(t, ab.mkind || "", m).length); if (!srcs.length) break; const a = rng.pick(srcs), w = mkMoveOne(a, m, ab.mkind || "", rng); if (!w) { from.splice(from.indexOf(a), 1); continue; } i++; moved.push(w); }
+            if (moved.length) { fx([m], 0, 0, moved.length === 1 ? mkOneLabel(moved[0]) : `${moved.length} markers`); if (moved.some((w) => w.startsWith("s:"))) this.afterBuffed(p, [m], m); }
           } else {
-            for (const a of from) for (let i = 0; i < nn; i++) { const opts = [...(ab.mkind !== "kw" && a.mk.p > 0 ? ["p"] : []), ...(ab.mkind !== "p" ? mkKws(a) : [])]; if (!opts.length) break; const w = rng.pick(opts); if (w === "p") mkAddP(a, -1); else mkDelKw(a, w); moved.push(a); }
+            for (const a of from) for (let i = 0; i < nn; i++) { if (!mkMoveOne(a, null, ab.mkind || "", rng)) break; moved.push(a); }
             fx([...new Set(moved)], 0, 0, "Markers removed");
           }
           break;
         }
         case "mkTake": {
           if (!m) break;
-          const l = ts().filter((t) => t !== m && !t.isSpell), keep = ab.mkeep === "copy"; let gp = 0; const gk = [];
+          const l = ts().filter((t) => t !== m && !t.isSpell), keep = ab.mkeep === "copy", all = { st: {}, kw: [] };
           for (const t of l) {
-            const g = mkTakeAll(t, m, keep, k); gp += g.p; gk.push(...g.kw);
+            const g = mkTakeAll(t, m, keep, k); for (const x in g.st) all.st[x] = (all.st[x] || 0) + g.st[x]; all.kw.push(...g.kw);
             if (ab.mkeep === "eat") { const i = p.board.indexOf(t); if (i >= 0) { p.board.splice(i, 1); this.returnToPool([t]); } }
           }
-          if (gp || gk.length) { fx([m], gp, gp, mkLabel({ p: gp, kw: gk })); if (gp) this.afterBuffed(p, [m], m); }
+          if (Object.keys(all.st).length || all.kw.length) { fx([m], 0, 0, mkLabel(all)); if (Object.keys(all.st).length) this.afterBuffed(p, [m], m); }
           break;
         }
         case "goldRandom": { const g = this.rngOf(p).int(1, Math.max(1, n)); if (this.inGameStart) p.nextGold += g; else p.gold += g; fx(m ? [m] : [], 0, 0, `+${g} gold`); (this.lastEffects = this.lastEffects || []).push({ uids: [], a: 0, h: 0, label: `+${g} gold`, source: -1 }); break; }
@@ -5154,7 +5097,8 @@
   function cleanMk(s) {
     if (!s || typeof s !== "object") return null;
     const o = { p: Math.max(0, Math.min(20, (s.p | 0) || 0)), kw: (Array.isArray(s.kw) ? s.kw : []).filter((k) => KW_LIST.includes(k) && k !== "magnetic") };
-    return o.p || o.kw.length ? o : null;
+    if (s.st && typeof s.st === "object") { const st = {}; for (const k in s.st) if (/^\d+\/\d+$/.test(k) && s.st[k] > 0) st[k] = Math.min(20, s.st[k] | 0); if (Object.keys(st).length) o.st = st; }
+    return o.p || o.kw.length || o.st ? o : null;
   }
   function registerCustom(list, opts = {}) {
     TEXT_CACHE.clear();

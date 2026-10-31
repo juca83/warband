@@ -1,9 +1,9 @@
 ## v78
 - **Markers** (like counters in a card game): they sit on a minion and stay there, turn after turn, until an effect moves them.
-  - **+1/+1 markers** stack: each one is +1 Attack and +1 Health. **Keyword markers** (one per keyword): the minion has that keyword as long as the marker is on it; move the marker away and the keyword goes with it.
+  - **Stat markers** stack: a +1/+1 marker is +1 Attack and +1 Health; other sizes exist too (+2/+2, +1/+3, +3/+1…) and keep their size when moved. **Keyword markers** (one per keyword): the minion has that keyword as long as the marker is on it; move the marker away and the keyword goes with it.
   - Markers given or taken **in combat are kept** back in the tavern (a marker stolen from an enemy is gone from their warband for good).
-  - Shown on minions and cards as small chips (green +N, one round chip per keyword marker), and in the tooltip. Triples and "Make golden" keep them.
-  - Card editor, new **Markers** group of effects: give +1/+1 markers · give a keyword marker (a chosen one or random) · move markers from other minions onto this one · gain all the markers of other minions (take them, a copy, or destroy the minion and take them) · remove markers · gain a random keyword the enemy warband has (for the combat, or as a marker).
+  - Shown on minions and cards as small chips (green +N for +1/+1 markers, +2/+2 and the like for other sizes, one round chip per keyword marker), and in the tooltip. Triples and "Make golden" keep them.
+  - Card editor, new **Markers** group of effects: give stat markers (pick their size) · give a keyword marker (a chosen one or random) · move markers from other minions onto this one · gain all the markers of other minions (take them, a copy, or destroy the minion and take them) · remove markers · gain a random keyword the enemy warband has (for the combat, or as a marker).
   - Targets can be filtered to **minions that carry markers**. Minion tab: **starting markers** (+1/+1 and keyword markers it carries from the start).
 - **Flying** (new keyword): ignores Taunt when it attacks, it hits a random minion without Taunt (if they all have Taunt, one of them). Wings on the token.
 - **Tokens**: a token is any card that never shows up in the tavern (untick "Can show up in the tavern"). They get a TOKEN tag and a dashed frame, and effects can aim at **your tokens** / **random tokens of yours**, or filter "tokens only / no tokens".
@@ -12,11 +12,16 @@
 - **The Beasts are new**, built around markers (the old Beasts are gone):
   - Tokens: Cub 1/1 · Birdie 1/1 with a Stealth marker.
   - T1 Cute Antelope 1/2, Windfury marker · Funny Lemur 2/1, Tough marker.
-  - T2 Lion Mother 3/2, Activate (2): summon a Cub (golden 6/4: two Cubs) · Proud Bird 2/2, Battlecry: summon a Birdie (golden 4/4: two) · Thieving Magpie 2/3, Start of Combat: steal a marker from an enemy.
-  - T3 Friendly Zebra 1/2, after you win a combat: summon a copy of it (golden: an exact copy) · Mother Hippo 3/4, Start of Combat: your tokens get a random keyword (golden: a keyword marker) · Reaper Lion 4/3, Tough marker, Start of Combat: gains a keyword of the enemy warband (golden: as a marker) · Hyena Scavenger 3/3, Battlecry: destroy a friendly minion with markers and take them all.
-  - T4 Guardian Giraffe 2/7 Taunt, Battlecry: a Shield marker on a friendly Beast · Zebu Traveler 5/3, when it attacks: gains the stats of your rightmost other Beast (golden: two) · Sky Shepherd 3/4, Battlecry: summon a Birdie; your tokens have a Flying marker.
+  - T2 Lion Mother 3/2, Activate (2): summon a Cub (golden 6/4: two Cubs) · Proud Bird 2/2, Battlecry: summon a Birdie (golden 4/4: two).
+  - T3 Friendly Zebra 1/2, after you win a combat: summon a copy of it (golden: an exact copy) · Mother Hippo 3/4, Start of Combat: your tokens get a random keyword (golden: a keyword marker) · Reaper Lion 4/3, Tough marker, Start of Combat: gains a keyword of the enemy warband (golden: as a marker).
+  - T4 Guardian Giraffe 2/7 Taunt, Battlecry: a Shield marker on a friendly Beast · Zebu Traveler 5/3, when it attacks: gains the stats of your rightmost other Beast (golden: two).
   - T5 Curious Buffalo 6/5 Cleave · Elephant King 5/6, Tough marker, Activate (1): destroy a friendly minion and gain a random keyword marker (golden: two).
-  - T6 Fierce King Gorilla 10/6 Cleave, when it attacks: gains the markers and the stats of the weakest enemy (golden: twice) · Old King 7/8, Battlecry and after a win: gains the stats and markers of your oldest Beast (golden: twice) · Great Vulture 6/7, after any minion dies in combat: takes its markers.
+  - T6 Fierce King Gorilla 10/6 Cleave, when it attacks: gains the markers and the stats of the weakest enemy (golden: twice) · Old King 7/8, Battlecry and after a win: gains the stats and markers of your oldest Beast (golden: twice).
+- **New tavern spells**:
+  - T1 Strength (1 gold): the next minion you buy gets +1/+2.
+  - T2 Blue Sky (2): a +2/+2 marker on a minion · Dawn Sky (2): a +1/+3 marker · Morning Sky (2): a +3/+1 marker · Night Sky (2): a +1/+1 marker on two random friendly minions.
+  - T3 Evolution (1): give a minion Stealth · Evolution (1): give a minion Tough. T4 Evolution (2): Windfury · Evolution (2): Shield.
+  - T5 Home (3): double a minion's Health · Sweet (3): double its Attack. T6 Home Sweet Home (3): double both.
 
 ## v77
 - Online: only what differs travels. The meta is cut into pieces (cards and rules, look and sounds, each picture, each skin), each with a short fingerprint; the friend's game compares with the copy it already has (from the launcher's ma-meta.js or an earlier game) and asks only for the pieces that changed. Same meta: the game starts at once. One card or one picture changed: a few kilobytes. The host prepares the list while the friend types the code.

@@ -1115,15 +1115,16 @@
   // counters of your own (Rage, Souls…): a small plate under the minion
   // ---- markers (v78): +1/+1 markers and keyword markers sit on the minion as small chips
   const MK_GLYPH = { taunt: "⛨", shield: "◈", reborn: "✚", windfury: "≋", venomous: "☠", cleave: "⚔", stealth: "◐", rally: "⚑", tough: "▣", flying: "➶" };
-  function markersText(mk) { if (!mk) return ""; return [mk.p ? `${mk.p} × +1/+1` : "", ...(mk.kw || []).map((k) => KW_TEXT[k] || k)].filter(Boolean).join(" · "); }
+  const mkStList = (mk) => Object.entries((mk && mk.st) || {}).filter(([, n]) => n > 0).map(([k, n]) => { const [a, h] = k.split("/"); return { z: `+${a}/+${h}`, n, one: k === "1/1" }; });
+  function markersText(mk) { if (!mk) return ""; return [...mkStList(mk).map((x) => `${x.n} × ${x.z}`), ...(mk.kw || []).map((k) => KW_TEXT[k] || k)].filter(Boolean).join(" · "); }
   function setMarkers(el, d, prev) {
-    let box = el.querySelector(":scope > .mn-mk"); const mk = d.mk, key = mk ? (mk.p || 0) + ":" + (mk.kw || []).join(",") : "";
+    let box = el.querySelector(":scope > .mn-mk"); const mk = d.mk, key = mk ? JSON.stringify(mk.st || {}) + ":" + (mk.kw || []).join(",") : "";
     if (!key) { if (box) box.remove(); el._mkKey = ""; return; }
     if (el._mkKey === key && box) return;
     const grew = prev && el._mkKey !== undefined && el._mkKey !== key; el._mkKey = key;
     if (!box) { box = document.createElement("div"); box.className = "mn-mk"; el.appendChild(box); }
     box.title = T("Markers") + ": " + markersText(mk);
-    box.innerHTML = (mk.p ? `<span class="mk-p">+${mk.p}</span>` : "") + (mk.kw || []).map((k) => `<span class="mk-k k-${k}" title="${escH((KW_TEXT[k] || k) + " " + T("marker"))}">${MK_GLYPH[k] || "◆"}</span>`).join("");
+    box.innerHTML = mkStList(mk).map((x) => `<span class="mk-p">${x.one ? "+" + x.n : (x.n > 1 ? x.n + "×" : "") + x.z}</span>`).join("") + (mk.kw || []).map((k) => `<span class="mk-k k-${k}" title="${escH((KW_TEXT[k] || k) + " " + T("marker"))}">${MK_GLYPH[k] || "◆"}</span>`).join("");
     if (grew) anim(box, [{ transform: "scale(1.5)", filter: "brightness(1.8)" }, { transform: "none", filter: "none" }], { duration: 420, easing: "cubic-bezier(.3,1.6,.5,1)" });
   }
   function setVars(el, d, prev) {
