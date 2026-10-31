@@ -1,0 +1,47 @@
+# Publie automatiquement une "Release" GitHub que le Warband Launcher télécharge.
+# Se déclenche quand un dossier Warband_Arena_vXX change sur main (ou à la main : Actions -> Run workflow).
+# La release contient le zip du dossier Warband_Arena_vXX le plus récent ; ses notes = la 1re section du CHANGELOG.
+name: Publier une version pour le launcher
+
+on:
+  push:
+    branches: [main]
+    paths: ["Warband_Arena_v*/**"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Trouver la version la plus récente
+        id: v
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          dir=$(ls -d Warband_Arena_v*/ | sed 's#/$##' | sort -V | tail -1)
+          num=$(echo "$dir" | sed 's/.*_v//' | tr -cd '0-9')
+          tag="v$num"
+          # même numéro déjà publié (correctif) : on ajoute un suffixe pour que le launcher voie une nouvelle version
+          if gh release view "$tag" >/dev/null 2>&1; then tag="v$num-$GITHUB_RUN_NUMBER"; fi
+          echo "dir=$dir" >> "$GITHUB_OUTPUT"
+          echo "tag=$tag" >> "$GITHUB_OUTPUT"
+
+      - name: Préparer le zip et les notes
+        env:
+          DIR: ${{ steps.v.outputs.dir }}
+        run: |
+          zip -r -q "$DIR.zip" "$DIR"
+          if [ -f "$DIR/CHANGELOG.md" ]; then awk '/^##? /{n++} n==1' "$DIR/CHANGELOG.md" > notes.md; fi
+          [ -s notes.md ] || echo "Nouvelle version de Warband Arena." > notes.md
+
+      - name: Publier la release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          DIR: ${{ steps.v.outputs.dir }}
+          TAG: ${{ steps.v.outputs.tag }}
+        run: gh release create "$TAG" "$DIR.zip" --title "Warband Arena $TAG" --notes-file notes.md --latest

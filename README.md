@@ -1,29 +1,30 @@
 # Warband Arena
 
-Autobattler de taverne (dans l'esprit des « battlegrounds ») jouable dans le navigateur.
-Le jeu est dans `Warband_Arena_vXX/` : on ouvre simplement `index.html`.
+Autobattler de taverne entre amis, jouable dans le navigateur ou via le **Warband Launcher**.
 
-## Lancer le jeu avec le launcher
+## Structure du repo
 
-Le launcher télécharge le jeu depuis **ce** repo (`juca83/warband`), le met à jour à chaque lancement,
-puis ouvre la dernière version (`Warband_Arena_v` avec le plus grand numéro) dans ton navigateur.
+| Dossier | Contenu |
+|---|---|
+| `Warband_Arena_vXX/` | Le jeu (ouvrir `index.html`). Le plus grand numéro = la version publiée. |
+| `launcher/src/` | Code source du Warband Launcher (appli Electron). |
+| `launcher/app.asar` | Le même code, tel qu'il est empaqueté dans l'appli. |
+| `.github/workflows/publier-version.yml` | Publie automatiquement une version pour le launcher. |
 
-### Windows
-1. Installe **Git for Windows** : https://git-scm.com/download/win (options par défaut).
-2. Sur GitHub, ouvre `launcher/Warband.bat` → bouton **Download raw file** (icône ⤓ en haut à droite du fichier).
-3. Mets `Warband.bat` sur ton Bureau et double-clique dessus.
-   Au premier lancement, une fenêtre GitHub peut s'ouvrir : connecte-toi (le repo est privé).
+## Comment le launcher trouve les versions
 
-### Mac / Linux
-1. Télécharge `launcher/Warband.command` de la même façon.
-2. Dans un terminal : `chmod +x ~/Downloads/Warband.command`, puis double-clique dessus.
+Le launcher lit la source du jeu (`juca83/warband`, réglable dans **⚙ Source du jeu**)
+et télécharge la dernière **Release** GitHub de ce repo : un tag (`v77`…), des notes (affichées
+comme « Nouveautés ») et un `.zip` du jeu. Le repo doit être **public**.
 
-Le jeu est installé dans `%LOCALAPPDATA%\Warband\warband` (Windows) ou `~/.warband/warband` (Mac/Linux).
-Pour suivre une autre branche ou un autre repo, modifie `REPO` / `BRANCH` en haut du launcher.
+Les releases sont créées **automatiquement** : dès qu'un dossier `Warband_Arena_vXX` change sur `main`,
+l'action « Publier une version pour le launcher » zippe le dossier le plus récent et publie la release.
+Dans le launcher : **↻ Rechercher une mise à jour**, puis **JOUER**.
 
-## Gros fichiers (plus de 25 Mo)
+On peut aussi la relancer à la main : onglet **Actions** → « Publier une version pour le launcher » → **Run workflow**.
 
-Le site GitHub refuse les fichiers de plus de 25 Mo en glisser-déposer. Deux solutions :
-- **Releases** (pour un `.exe`, un `.zip`…) : page du repo → **Releases** → **Draft a new release** →
-  glisse le fichier (jusqu'à 2 Go) → **Publish release**. On le télécharge ensuite depuis l'onglet Releases.
-- **GitHub Desktop** (https://desktop.github.com) pour les fichiers du jeu jusqu'à 100 Mo.
+## Garder ses cartes d'une version à l'autre
+
+Les cartes créées sont enregistrées dans le navigateur (ou dans le launcher), pas dans les fichiers du jeu.
+Pour les transférer : **Admin mode → Export** (copie tout dans le presse-papiers) dans l'ancienne version,
+puis **Admin mode → Import** (coller, puis Import) dans la nouvelle.

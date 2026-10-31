@@ -1,0 +1,17 @@
+{
+  "name": "warband-launcher",
+  "productName": "Warband Launcher",
+  "version": "1.0.0",
+  "description": "Keeps Warband Arena up to date from its GitHub releases, and starts it.",
+  "main": "main.js",
+  "private": true,
+  "dependencies": {
+    "adm-zip": "0.5.16"
+  },
+  "devDependencies": {
+    "@electron/packager": "18.3.6",
+    "electron": "37.10.3",
+    "pe-library": "^1.0.1",
+    "resedit": "^2.0.3"
+  }
+}
