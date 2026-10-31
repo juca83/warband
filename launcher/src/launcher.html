@@ -21,12 +21,15 @@
   .link:hover { color: var(--text); background: rgba(255,255,255,.04); }
   .ver { font-size: 11.5px; color: #6f7699; }
   /* main */
-  .main { display: grid; grid-template-rows: auto 1fr auto; min-width: 0; }
+  .main { display: grid; grid-template-rows: auto minmax(0, 1fr) auto; min-width: 0; min-height: 0; height: 100%; overflow: hidden; }
   .hero { position: relative; padding: 34px 40px 26px; background: radial-gradient(ellipse at 75% -10%, rgba(242,194,85,.22), transparent 55%), radial-gradient(ellipse at 10% 120%, rgba(110,130,255,.16), transparent 55%), linear-gradient(180deg, #191b3a, #121429); border-bottom: 1px solid var(--line); }
   .hero h1 { margin: 0; font: 800 46px/1 Georgia, "Times New Roman", serif; letter-spacing: .01em; background: linear-gradient(180deg, var(--gold2), var(--gold) 55%, var(--gold3)); -webkit-background-clip: text; background-clip: text; color: transparent; filter: drop-shadow(0 3px 0 rgba(0,0,0,.35)); }
   .hero p { margin: 8px 0 0; color: var(--mist); }
   .hero-art { position: absolute; right: 34px; top: 50%; width: 118px; height: 118px; transform: translateY(-50%) rotate(-6deg); filter: drop-shadow(0 10px 22px rgba(0,0,0,.55)); opacity: .95; }
-  .news { padding: 22px 40px; overflow: auto; }
+  /* the news scroll inside their own area: the Play bar always stays visible at the bottom */
+  .news { padding: 22px 40px; min-height: 0; overflow-y: auto; overscroll-behavior: contain; }
+  .news::-webkit-scrollbar { width: 12px; } .news::-webkit-scrollbar-track { background: rgba(255,255,255,.04); border-radius: 99px; }
+  .news::-webkit-scrollbar-thumb { background: linear-gradient(180deg, var(--gold2), var(--gold3)); border-radius: 99px; border: 3px solid var(--bg); }
   .news h2 { margin: 0 0 2px; font: 700 20px/1.2 Georgia, serif; color: var(--gold2); }
   .news .date { color: var(--mist); font-size: 12.5px; margin-bottom: 12px; }
   .notes { background: var(--panel); border-radius: 14px; padding: 16px 20px; box-shadow: inset 0 0 0 1px var(--line); font-size: 14px; user-select: text; }
