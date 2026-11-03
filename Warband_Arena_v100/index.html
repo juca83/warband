@@ -1,0 +1,127 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Warband Arena</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,800&family=Manrope:wght@400;500;600;700;800&display=swap">
+<link rel="stylesheet" href="style.css">
+<div id="app">
+  <div id="stage">
+    <div class="shake-root">
+      <div class="table-bg"></div>
+      <div class="candle"></div>
+
+      <aside id="players" aria-label="Players"><h2>Players</h2><div id="plist" style="display:flex;flex-direction:column;gap:6px"></div><div id="tribeList"></div></aside>
+
+      <section id="tavernTop" aria-label="Tavern">
+        <button id="btnUpgrade" class="tbtn" title="Upgrade your tavern so stronger minions appear">
+          <span class="cost">5</span><svg viewBox="0 0 24 24" fill="none" stroke="#ffd25a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20V6M5 12l7-7 7 7"/><path d="M5 20h14"/></svg><span class="lbl">Upgrade</span>
+        </button>
+        <div class="keeper-wrap" id="keeperWrap">
+          <div class="tierstars" id="keeperStars"></div>
+          <div class="keeper" id="keeper"><div id="keeperArt" style="width:100%;height:100%"></div></div>
+          <div class="keeper-plate" id="keeperPlate">Tavern Tier 1</div>
+          <div id="quip" class="quip" hidden></div>
+        </div>
+        <button id="btnRoll" class="tbtn" title="Replace the minions in the tavern">
+          <span class="cost">1</span><svg viewBox="0 0 24 24" fill="none" stroke="#ffd25a" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20 11a8 8 0 0 0-14.3-4.9L4 8"/><path d="M4 3v5h5"/><path d="M4 13a8 8 0 0 0 14.3 4.9L20 16"/><path d="M20 21v-5h-5"/></svg><span class="lbl">Refresh</span>
+        </button>
+        <button id="btnFreeze" class="tbtn" title="Keep these minions for next turn" aria-pressed="false">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#9fdcff" stroke-width="2.2" stroke-linecap="round"><path d="M12 2v20M3.3 7l17.4 10M3.3 17L20.7 7"/><path d="M9 4l3 3 3-3M9 20l3-3 3 3"/></svg><span class="lbl">Freeze</span>
+        </button>
+      </section>
+
+      <div id="ehero" class="hero" hidden></div>
+
+      <section id="shopZone" class="zone">
+        <div id="shop" class="row"></div>
+        <div id="enemyRow" class="row" hidden></div>
+        <div class="sell-hint">Sell this minion</div>
+      </section>
+
+      <section id="boardZone" class="zone">
+        <span class="zone-label">Your warband</span>
+        <div id="board" class="row"></div>
+        <div id="cmine" class="row" hidden></div>
+      </section>
+
+      <section id="bottom">
+        <div id="myhero" class="hero"></div>
+        <button id="heroPower" class="hero-power" hidden aria-label="Hero power"></button>
+        <button id="portal" class="portal" hidden aria-label="Portal to your partner"></button>
+        <div id="gold" class="gold"></div>
+        <div id="hand"></div>
+        <div id="rope" class="rope" hidden><i></i><span></span></div>
+        <button id="btnEnd" class="endturn">End Turn</button>
+      </section>
+
+      <div id="affSlot1" class="aff-slot empty" data-slot="0"></div>
+      <div id="affSlot2" class="aff-slot empty" data-slot="1"></div>
+      <div id="pressureGauge" class="press-gauge" hidden></div>
+
+      <div id="sellZone" aria-hidden="true"></div>
+      <svg id="aimArrow" viewBox="0 0 1280 760" aria-hidden="true">
+        <defs><filter id="aimGlow" x="-50%" y="-50%" width="200%" height="200%"><feGaussianBlur stdDeviation="3" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>
+        <circle class="aim-dot" r="7"/>
+        <path class="aim-line" d=""/>
+        <g class="aim-ret"><circle r="34"/><circle r="22"/><path d="M0,-44 V-28 M0,28 V44 M-44,0 H-28 M28,0 H44"/></g>
+        <g class="aim-head"><path d="M6,0 L-16,-13 L-10,0 L-16,13 Z"/></g>
+      </svg>
+      <div id="banner"></div>
+      <div id="fx"></div>
+      <div id="drag"></div>
+      <div id="tip"></div>
+      <div id="toast" role="status"></div>
+      <div id="combatCtrl" class="ctrl" hidden>
+        <button class="pill" id="btnSpeed">Speed 1x</button>
+        <button class="pill" id="btnSkip">Skip</button>
+        <button class="pill big" id="btnContinue" hidden>Back to the tavern</button>
+      </div>
+      <div id="rankChip" class="rank-chip"></div>
+      <button class="pill" id="btnSound"></button>
+      <button class="pill" id="btnMenu" title="Resume, concede or quit">☰ Menu</button>
+      <button class="pill keep-meta" id="btnKeepMeta" hidden></button>
+      <div id="modal" hidden></div>
+    </div>
+  </div>
+  <div class="rotate-hint">Turn your phone sideways for a bigger table.</div>
+</div>
+<script src="logic.js"></script>
+<script src="images.js"></script>
+<script src="fxengine.js"></script>
+<script src="style.js"></script>
+<script src="art.js"></script>
+<script src="editor.js"></script>
+<script src="studio.js"></script>
+<script src="tableeditor.js"></script>
+<script src="net.js"></script>
+<script src="i18n.js"></script>
+<script src="ambience.js"></script>
+<!-- a meta shipped with the game (made in the studio with "For a friend"); optional -->
+<script src="ma-meta.js"></script>
+<script src="ui.js"></script>
+<script>
+// Launch check: a game opened straight from inside the .zip (Windows copies only index.html out of it) or one whose
+// scripts did not load shows what to do instead of a broken table.
+(function () {
+  var lang = ""; try { lang = localStorage.getItem("wa_lang") || ""; } catch (e) {}
+  var fr = lang ? lang === "fr" : /^fr/i.test(navigator.language || "");
+  var href = ""; try { href = decodeURIComponent(location.href); } catch (e) { href = location.href; }
+  var inZip = /\.zip[\/\\]/i.test(href) || /[\/\\]Temp\d*_[^\/\\]*\.zip/i.test(href);
+  function help(why) {
+    if (document.getElementById("launchHelp")) return;
+    var d = document.createElement("div"); d.id = "launchHelp";
+    d.style.cssText = "position:fixed;inset:0;z-index:99999;display:grid;place-items:center;background:rgba(8,9,22,.96);color:#f3ead6;font:16px/1.5 system-ui,sans-serif;padding:24px";
+    d.innerHTML = '<div style="max-width:620px;background:#1b1d3a;border:1px solid #c9a24a;border-radius:18px;padding:26px 30px;box-shadow:0 20px 60px rgba(0,0,0,.6)">'
+      + '<h2 style="margin:0 0 10px;color:#ffd98a;font:700 24px/1.2 Georgia,serif">' + (fr ? "Le jeu ne peut pas se lancer d'ici" : "The game can't start from here") + '</h2>'
+      + '<p style="margin:0 0 12px">' + (why === "zip" ? (fr ? "Il a été ouvert <b>depuis l'intérieur du fichier .zip</b> : l'ordinateur n'en a sorti que la page, sans le reste du jeu." : "It was opened <b>from inside the .zip file</b>: the computer took out only this page, without the rest of the game.") : (fr ? "Une partie de ses fichiers n'a pas pu être lue." : "Some of its files could not be read.")) + '</p>'
+      + '<ol style="margin:0 0 14px;padding-left:22px">' + (fr ? '<li>Ferme cette page.</li><li>Fais un <b>clic droit</b> sur le fichier .zip → <b>Extraire tout…</b> (Mac : double-clic sur le .zip).</li><li>Ouvre le dossier extrait et double-clique sur <b>index.html</b>.</li>' : '<li>Close this page.</li><li><b>Right-click</b> the .zip file → <b>Extract All…</b> (Mac: double-click the .zip).</li><li>Open the extracted folder and double-click <b>index.html</b>.</li>') + '</ol>'
+      + '<p style="margin:0;color:#b9c0dc;font-size:14px">' + (fr ? "Conseil : ouvre le jeu avec Chrome ou Edge, et toujours avec le même navigateur (c'est lui qui garde tes parties et la méta reçue). Voir aussi LISEZ-MOI.txt." : "Tip: open the game with Chrome or Edge, and always with the same browser (it keeps your games and the meta you received). See also LISEZ-MOI.txt.") + '</p></div>';
+    document.body.appendChild(d);
+  }
+  if (inZip) { if (document.body) help("zip"); else document.addEventListener("DOMContentLoaded", function () { help("zip"); }); }
+  window.addEventListener("load", function () { setTimeout(function () { if (!window.WA || !window.WA_UI) help(inZip ? "zip" : "files"); }, 1500); });
+})();
+</script>
+
+</body></html>
