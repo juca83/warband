@@ -4409,6 +4409,7 @@
       if (p.gold < PASS_COST) return `Sending a card costs ${PASS_COST} gold.`;
       const list = zone === "board" ? p.board : p.hand, m = list[i];
       if (!m) return "Nothing there.";
+      if (isMannequin(m)) return "The Mannequin can't be sent."; // v115 it stays with its Blobs (a partner gets one with their first Blob)
       if (mate.hand.length + (mate.inbox || []).length >= HAND_MAX) return `${mate.name}'s hand is full.`;
       list.splice(i, 1);
       p.gold -= PASS_COST;
@@ -4443,7 +4444,7 @@
         }
         if (!pick && late) {
           const mt = mainOf(mate), mine = mainOf(p);
-          const i = p.hand.findIndex((x) => !x.isSpell && mt && hasTribe(x, mt) && !hasTribe(x, mine));
+          const i = p.hand.findIndex((x) => !x.isSpell && !isMannequin(x) && mt && hasTribe(x, mt) && !hasTribe(x, mine));
           if (i >= 0 && p.board.length >= BOARD_MAX) pick = ["hand", i];
         }
         if (!pick) break;

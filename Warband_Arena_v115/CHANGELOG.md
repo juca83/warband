@@ -14,6 +14,7 @@
   - "Lock in werewolf form" was already there (Day and night); a power aimed at a minion now refuses a minion it can't work on (a non-Human for the lock, a Blob for a "Beasts only" filter, a minion already "all tribes"…) without spending the gold.
 - **Bots** use these powers too: they aim only at minions the power works on, and sell (with the markers) only to make room on a full board.
 - **Game pace**: the rule of the pace you pick is written next to it (Health at the start, Health a lost fight can cost turn by turn, Duo).
+- **Fix (Duo)**: the Mannequin can no longer be sent to your partner (a bot could send it to a partner who already had one: two Mannequins on a board). A partner gets their own with their first Blob.
 
 ## v114
 - **The Mannequin is never boosted.** It is a place on the board for the fusion, not a card that grows: your effects (spells, Battlecries, auras, "+X/+X to your Blobs", markers, keywords, hero powers) can't target it, and random or "all your minions" effects skip it and go to a real minion. While the Blobs are merged in it, it is their body (what happens to the fusion during the strike stays as before); when they split back it is its empty 0/1 self again. It is not counted for "your most common tribe" either.
