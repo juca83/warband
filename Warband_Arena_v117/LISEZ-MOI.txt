@@ -1,0 +1,49 @@
+WARBAND ARENA - LISEZ-MOI
+=========================
+
+POUR JOUER (toi ou un ami)
+--------------------------
+1. Ne lance pas le jeu depuis l'intérieur du fichier .zip.
+   Fais un clic droit sur le .zip -> "Extraire tout..." (Mac : double-clic sur le .zip).
+2. Ouvre le dossier extrait et double-clique sur index.html.
+3. Utilise Chrome ou Edge, et toujours le même navigateur :
+   c'est lui qui garde tes parties, tes créations et la méta reçue.
+   (Firefox et Safari gardent mal les données d'un jeu ouvert depuis un fichier.)
+4. Il faut internet pour les polices d'écriture et pour jouer en ligne avec un ami ;
+   le reste marche sans.
+
+Si le jeu a été ouvert depuis le zip, un écran l'explique au lancement.
+
+
+ENVOYER TA MÉTA À UN AMI (tes cartes, images, skins, sons, polices, règles)
+----------------------------------------------------------------------------
+Tes créations ne sont pas dans les fichiers du jeu : elles vivent dans ton navigateur.
+Pour que ton ami ait exactement ton jeu :
+
+1. Dans le jeu : Mode admin -> Studio de création, sur la méta que tu veux partager.
+2. Clique sur "Pour un ami" (en bas de la liste, à côté d'Exporter) :
+   le fichier ma-meta.js est enregistré dans tes téléchargements.
+3. Mets ma-meta.js dans le dossier du jeu, à côté de index.html
+   (remplace l'ancien s'il y en a un).
+4. Zippe le dossier et envoie-le.
+
+Chez ton ami, au premier lancement, le jeu installe ta méta tout seul et la sélectionne.
+Quand tu lui renvoies un dossier avec un ma-meta.js plus récent, sa copie est mise à jour
+(il garde ses parties ; ses propres métas ne sont pas touchées).
+
+Astuce : pour une nouvelle version du jeu, il suffit qu'il remplace son dossier par le
+nouveau ; sa progression reste dans son navigateur.
+
+
+JOUER ENSEMBLE EN LIGNE
+-----------------------
+Menu -> "Jouer avec un ami". L'hôte crée une salle et donne le code à 5 lettres ;
+l'autre le tape dans "Rejoindre". La méta de l'hôte est envoyée à l'ami pour la partie.
+Les deux doivent avoir la même version du jeu (le numéro en bas à droite du menu).
+
+Rien à régler : si vos box empêchent les deux PC de se relier directement, le jeu passe
+tout seul par un relais public gratuit. Il faut juste internet des deux côtés et la même version.
+Celui qui CRÉE la salle garde la fenêtre du jeu ouverte jusqu'à ce que l'ami arrive.
+Avant la première carte, le jeu vérifie que l'ami a exactement la méta de l'hôte. S'il l'a
+déjà (grâce au launcher), la partie démarre tout de suite ; sinon elle est envoyée une seule
+fois avec une barre de progression, puis elle reste dans son jeu.
