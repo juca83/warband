@@ -1,3 +1,8 @@
+## v118
+- **Table workshop: the bartender's speech bubble can be placed** ("Bartender's speech bubble"). It shows a sample line while you edit; it still follows the bartender, plus its own offset.
+- **The warband sits in the tavern exactly as in a fight**: same size, centred the same way, at the same height (the tavern row used to be smaller, pushed left and higher). The "Total age" chip moves under the warband, at the left (the workshop can still move it).
+- **Fix: "All tribes" minions count for the tribes' affinities.** An "all tribes" card, or a minion made "all tribes" by a hero power, now counts in the Fire count of a Blaze warband (and shows the Fire badge). A tribe's affinities are the ones at least half of its tavern cards carry.
+
 ## v117
 - **Delete anything**: the built-in tokens (Mannequin, Goo Blob, Pup, Cub, Birdie, Coral Sprout) can now be deleted too, with "Delete card", like any built-in card, spell or hero; they come back with one click from "🗑 Deleted cards" at the bottom of the list. An effect that summons or gives a deleted card does nothing. **Without the Mannequin, the Blobs no longer merge: they fight like any minion.**
 - **Tavern spells: "Only in the tavern when one of these tribes is in the game" / "Never in the tavern when…"** (card editor, Spell), like the heroes. A spell that asks for a tribe is listed under that tribe in Studio > Tribes.
