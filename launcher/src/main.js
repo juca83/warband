@@ -28,12 +28,20 @@ const state = () => readJSON(STATE(), { installed: "", index: "", notes: "", nam
 const VERSIONS = () => path.join(DATA(), "versions");
 
 // ---------------------------------------------------------------- GitHub
+const UA = "WarbandLauncher";
+const wait = (ms) => new Promise((res) => setTimeout(res, ms));
+const gh = (status, msg) => Object.assign(new Error(msg || "GitHub HTTP " + status), { code: status >= 500 ? "github" : status === 403 || status === 429 ? "limit" : status === 404 ? "notfound" : "network", status });
 async function getJSON(url) {
-  const r = await net.fetch(url, { headers: { Accept: "application/vnd.github+json", "User-Agent": "WarbandLauncher" } });
-  if (r.status === 404) throw Object.assign(new Error("not found"), { code: "notfound" });
-  if (r.status === 403 || r.status === 429) throw Object.assign(new Error("rate limited"), { code: "limit" });
-  if (!r.ok) throw new Error("HTTP " + r.status);
-  return r.json();
+  // 1.0.1 GitHub sometimes answers 5xx for a moment: a second try before giving up
+  for (let i = 0; ; i++) {
+    try {
+      const r = await net.fetch(url, { headers: { Accept: "application/vnd.github+json", "User-Agent": UA } });
+      if (r.status === 404) throw Object.assign(new Error("not found"), { code: "notfound" });
+      if (r.status === 403 || r.status === 429) throw Object.assign(new Error("rate limited"), { code: "limit" });
+      if (!r.ok) throw gh(r.status);
+      return await r.json();
+    } catch (e) { if (i >= 2 || e.code === "notfound" || e.code === "limit") throw e; await wait(1500 * (i + 1)); }
+  }
 }
 async function latestRelease() {
   const c = config();
@@ -42,22 +50,63 @@ async function latestRelease() {
   const assets = rel.assets || [];
   const zip = assets.find((a) => /\.zip$/i.test(a.name));
   const meta = assets.find((a) => /^ma-meta\.js$/i.test(a.name)) || assets.find((a) => /\.js$/i.test(a.name));
-  return { tag: rel.tag_name, name: rel.name || rel.tag_name, notes: rel.body || "", publishedAt: rel.published_at || "", zip: zip && { url: zip.browser_download_url, size: zip.size, name: zip.name }, meta: meta && { url: meta.browser_download_url, size: meta.size } };
+  const file = (a) => a && { api: a.url, url: a.browser_download_url, size: a.size, name: a.name };
+  return { tag: rel.tag_name, name: rel.name || rel.tag_name, notes: rel.body || "", publishedAt: rel.published_at || "", zip: file(zip), meta: file(meta) };
 }
-// a download with progress (GitHub sends assets through a redirect: net.fetch follows it)
-async function download(url, dest, onProgress) {
-  const r = await net.fetch(url, { headers: { "User-Agent": "WarbandLauncher", Accept: "application/octet-stream" } });
-  if (!r.ok || !r.body) throw new Error("download HTTP " + r.status);
-  const total = +r.headers.get("content-length") || 0;
-  fs.mkdirSync(path.dirname(dest), { recursive: true });
-  const out = fs.createWriteStream(dest), reader = r.body.getReader(); let got = 0;
-  for (;;) {
-    const { done, value } = await reader.read(); if (done) break;
-    got += value.length; if (!out.write(Buffer.from(value))) await new Promise((res) => out.once("drain", res));
-    onProgress(got, total);
+// 1.0.1 a release file, from two addresses: GitHub's API one first (api.github.com/.../releases/assets/ID), then the usual
+// github.com/.../releases/download/... link. In November 2026 github.com's download links answered "504 Gateway Timeout"
+// for this repository while the API kept working; the launcher used only the github.com link and failed at once.
+// Each address is tried up to 3 times; a stalled transfer is dropped after 45 s; the file must have the size GitHub
+// announced (and, for the game, be a real zip) or it is fetched again. Both addresses end on GitHub's file server through
+// a redirect, which net.fetch follows.
+const sourcesOf = (a) => [a.api && { url: a.api, api: true }, a.url && { url: a.url }].filter(Boolean);
+async function fetchOnce(src, dest, onProgress, expect) {
+  const ctl = new AbortController(); let timer = null, out = null, reader = null;
+  // 45 s without a byte: the request is dropped (and the read waiting for data released) so the next try starts
+  const arm = () => { clearTimeout(timer); timer = setTimeout(() => { ctl.abort(); if (reader) reader.cancel().catch(() => {}); }, +process.env.WA_LAUNCHER_STALL || 45000); };
+  try {
+    arm();
+    const r = await net.fetch(src.url, { headers: { "User-Agent": UA, Accept: "application/octet-stream" }, signal: ctl.signal });
+    if (!r.ok || !r.body) throw gh(r.status, "download HTTP " + r.status);
+    const total = +r.headers.get("content-length") || expect || 0;
+    fs.mkdirSync(path.dirname(dest), { recursive: true });
+    out = fs.createWriteStream(dest);
+    let failed = null; out.on("error", (e) => { failed = e; });
+    reader = r.body.getReader(); let got = 0;
+    for (;;) {
+      arm();
+      const { done, value } = await reader.read(); if (done) break;
+      if (failed) throw failed;
+      if (ctl.signal.aborted) break;
+      got += value.length; if (!out.write(Buffer.from(value))) await new Promise((res) => out.once("drain", res));
+      onProgress(got, total);
+    }
+    if (ctl.signal.aborted) throw Object.assign(new Error("download stalled"), { code: "github" });
+    await new Promise((res, rej) => { if (failed) return rej(failed); out.once("error", rej); out.end(res); });
+    out = null;
+    if (expect && got !== expect) throw Object.assign(new Error(`incomplete download: ${got} of ${expect} bytes`), { code: "github" });
+    return got;
+  } catch (e) {
+    if (out) await new Promise((res) => { out.once("close", res); out.destroy(); setTimeout(res, 2000); });
+    try { fs.rmSync(dest, { force: true }); } catch (x) {}
+    if (e && (e.name === "AbortError" || ctl.signal.aborted)) throw Object.assign(new Error("download stalled"), { code: "github" });
+    throw e;
+  } finally { clearTimeout(timer); }
+}
+const isZip = (f) => { try { const fd = fs.openSync(f, "r"), b = Buffer.alloc(4); fs.readSync(fd, b, 0, 4, 0); fs.closeSync(fd); return b[0] === 0x50 && b[1] === 0x4b && b[2] === 3 && b[3] === 4; } catch (e) { return false; } };
+async function download(file, dest, onProgress, { zip = false, onRetry = () => {} } = {}) {
+  const srcs = sourcesOf(file), plan = [];
+  for (let round = 0; round < 3; round++) for (const s of srcs) plan.push(s);
+  let last = null;
+  for (let i = 0; i < plan.length; i++) {
+    if (i) { onRetry(i + 1, plan.length); await wait(Math.min(6000, 1000 * i)); }
+    try {
+      const got = await fetchOnce(plan[i], dest, onProgress, file.size || 0);
+      if (zip && !isZip(dest)) { try { fs.rmSync(dest, { force: true }); } catch (x) {} throw Object.assign(new Error("not a zip"), { code: "github" }); }
+      return got;
+    } catch (e) { last = e; }
   }
-  await new Promise((res, rej) => { out.end(res); out.on("error", rej); });
-  return got;
+  throw last || new Error("download failed");
 }
 // where index.html is inside an extracted release (the zip usually holds one folder)
 function findIndex(dir, depth = 0) {
@@ -109,15 +158,15 @@ ipcMain.handle("update", async () => {
     if (!r.zip) return { ok: false, code: "nozip" };
     const tmp = path.join(DATA(), "download", safeTag(r.tag) + ".zip");
     send("progress", { step: "download", got: 0, total: r.zip.size || 0 });
-    await download(r.zip.url, tmp, (got, total) => send("progress", { step: "download", got, total: total || r.zip.size || 0 }));
+    await download(r.zip, tmp, (got, total) => send("progress", { step: "download", got, total: total || r.zip.size || 0 }), { zip: true, onRetry: (n, of) => send("progress", { step: "retry", n, of }) });
     send("progress", { step: "extract" });
     const dir = path.join(VERSIONS(), safeTag(r.tag));
     fs.rmSync(dir, { recursive: true, force: true }); fs.mkdirSync(dir, { recursive: true });
-    new AdmZip(tmp).extractAllTo(dir, true);
+    try { new AdmZip(tmp).extractAllTo(dir, true); } catch (e) { throw Object.assign(new Error("unzip: " + (e.message || e)), { code: "extract" }); }
     const index = findIndex(dir);
     if (!index) throw Object.assign(new Error("index.html not found in the zip"), { code: "badzip" });
     // the publisher's meta: next to index.html, the game installs it by itself
-    if (r.meta) { send("progress", { step: "meta" }); await download(r.meta.url, path.join(path.dirname(index), "ma-meta.js"), () => {}); }
+    if (r.meta) { send("progress", { step: "meta" }); await download(r.meta, path.join(path.dirname(index), "ma-meta.js"), () => {}); }
     writeJSON(STATE(), { installed: r.tag, index, notes: r.notes, name: r.name, publishedAt: r.publishedAt });
     // keep the new version only (and the download cache clean)
     for (const e of fs.readdirSync(VERSIONS())) if (e !== safeTag(r.tag)) fs.rmSync(path.join(VERSIONS(), e), { recursive: true, force: true });

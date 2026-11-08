@@ -1,7 +1,7 @@
 {
   "name": "warband-launcher",
   "productName": "Warband Launcher",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Keeps Warband Arena up to date from its GitHub releases, and starts it.",
   "main": "main.js",
   "private": true,

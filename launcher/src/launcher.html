@@ -117,6 +117,7 @@ function showInstalled() { $("#tileVer").textContent = S.installed ? "Version in
 const mb = (n) => (n / 1048576).toFixed(1).replace(".", ",") + " Mo";
 L.onProgress((d) => {
   if (d.step === "download") { status("Téléchargement de la mise à jour…", d.total ? mb(d.got) + " sur " + mb(d.total) : mb(d.got)); progress(true, d.total ? d.got / d.total : null); }
+  else if (d.step === "retry") { status("Téléchargement de la mise à jour…", "GitHub répond mal : nouvel essai (" + d.n + " sur " + d.of + ")…"); progress(true, null); }
   else if (d.step === "extract") { status("Installation…", "Décompression du jeu"); progress(true, null); }
   else if (d.step === "meta") { status("Installation…", "La méta du créateur"); progress(true, null); }
   else if (d.step === "done") progress(false);
@@ -129,7 +130,7 @@ async function refresh(auto) {
   status("Recherche d'une mise à jour…", S.repo); progress(true, null); playBtn("JOUER", false);
   const c = await L.check(); progress(false);
   if (!c.ok) {
-    const why = { notfound: "Aucune version publiée à cette adresse (ou le dépôt est privé).", limit: "GitHub limite les vérifications : réessaie dans un moment.", nosource: "Source invalide." }[c.code] || "Pas de connexion à internet ?";
+    const why = { notfound: "Aucune version publiée à cette adresse (ou le dépôt est privé).", limit: "GitHub limite les vérifications : réessaie dans un moment.", nosource: "Source invalide.", github: "GitHub ne répond pas pour le moment (panne de leur côté) : réessaie dans un moment." }[c.code] || "Pas de connexion à internet ?";
     if (S.hasGame) { status("Impossible de vérifier les mises à jour", why + " Tu peux jouer à la version installée.", "warn"); playBtn("JOUER", true); }
     else { status("Impossible de télécharger le jeu", why, "bad"); playBtn("JOUER", false); }
     busy = false; return;
@@ -142,7 +143,11 @@ async function refresh(auto) {
   const u = await L.update(); progress(false);
   S = await L.state(); showInstalled();
   if (u.ok) { status(S.installed === c.latest.tag ? "Le jeu est à jour" : "Prêt", "Version " + S.installed + " installée", "ok"); playBtn("JOUER", true); }
-  else { status("La mise à jour a échoué", (u.code === "badzip" ? "Le zip publié ne contient pas index.html." : "Vérifie ta connexion puis « Rechercher une mise à jour ».") + (S.hasGame ? " La version installée reste jouable." : ""), "bad"); playBtn("JOUER", S.hasGame); }
+  else {
+    // 1.0.1 the real reason, and the technical detail after it (to tell what happened)
+    const why = { badzip: "Le zip publié ne contient pas index.html.", github: "GitHub ne répond pas pour le moment (panne de leur côté, pas de ta connexion). Réessaie dans un moment avec « Rechercher une mise à jour ».", limit: "GitHub limite les téléchargements : réessaie dans une heure.", extract: "Impossible de décompresser le jeu sur ton ordinateur (disque plein, ou un fichier bloqué ?).", busy: "Une mise à jour est déjà en cours." }[u.code] || "Vérifie ta connexion puis « Rechercher une mise à jour ».";
+    status("La mise à jour a échoué", why + (S.hasGame ? " La version installée reste jouable." : "") + (u.message && u.code !== "busy" ? " [" + u.message + "]" : ""), "bad"); playBtn("JOUER", S.hasGame);
+  }
   busy = false;
 }
 $("#btnPlay").addEventListener("click", async () => { const r = await L.play(); if (r && r.error) status("Le jeu n'est pas installé", "Recherche une mise à jour d'abord.", "bad"); });
