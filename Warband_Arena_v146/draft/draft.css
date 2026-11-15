@@ -1,0 +1,83 @@
+/* v146 Draft mode: the draft (booster + your two lists), your board, the tournament */
+#modal .mbox.dr-box { width: 1280px; max-width: calc(100% - 30px); max-height: 95%; overflow: auto; padding: 16px 18px; text-align: left; box-sizing: border-box; }
+.dr { display: grid; gap: 10px; text-align: left; width: 100%; box-sizing: border-box; } .dr h4 { text-align: left; }
+.dr-draft, .dr-build { grid-template-columns: minmax(0, 1fr) 250px; align-items: start; gap: 16px; }
+.dr-mainc { display: grid; gap: 10px; min-width: 0; }
+.dr-head { display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+.dr-head h2 { margin: 0; }
+.dr-prog { color: var(--mist, #b8bce0); font: 600 14px/1.3 var(--font-body); }
+.dr-prog b { color: #ffe08a; }
+.dr-dir { margin-left: 10px; padding: 2px 8px; border-radius: 999px; background: rgba(255,255,255,.07); font-size: 12px; }
+.dr-dots { display: flex; gap: 3px; margin-left: auto; flex-wrap: wrap; max-width: 380px; }
+.dr-dots i { width: 9px; height: 9px; border-radius: 50%; background: rgba(255,255,255,.12); }
+.dr-dots i.gap { margin-left: 7px; } .dr-dots i.on { background: #e2b04a; } .dr-dots i.now { background: #fff4c8; box-shadow: 0 0 8px #ffd36a; }
+.dr-hint { margin: 0; color: var(--mist, #b8bce0); font-size: 13px; }
+.dr-pack { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 8px 10px; justify-items: center; align-items: start; }
+.dr-slot { position: relative; padding: 17px 5px 5px; border-radius: 14px; cursor: pointer; transition: transform .15s, box-shadow .15s, background .15s; background: rgba(255,255,255,.03); box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); }
+.dr-slot:hover { transform: translateY(-3px); background: rgba(255,255,255,.06); }
+.dr-slot.on { background: rgba(226,176,74,.16); box-shadow: inset 0 0 0 2px #e2b04a, 0 0 22px rgba(255,211,106,.35); transform: translateY(-4px); }
+.dr-slot > .card, .dr-slot > .hero-pick, .dr-pslot > .card, .dr-pslot > .hero-pick { pointer-events: none; zoom: .78; margin: 0 auto; }
+.dr-tag { position: absolute; top: 3px; left: 50%; transform: translateX(-50%); z-index: 2; padding: 1px 8px; border-radius: 999px; font: 800 10.5px/1.4 var(--font-body); letter-spacing: .04em; text-transform: uppercase; color: #1a1430; background: #c9b78a; white-space: nowrap; }
+.dr-tag.k-hero { background: #e2b04a; } .dr-tag.k-mage { background: #a98cf6; }
+.dr-foot { display: flex; align-items: center; gap: 14px; justify-content: space-between; flex-wrap: wrap; }
+.dr-left { color: var(--mist, #b8bce0); font: 600 13px/1.2 var(--font-body); }
+.dr-take[disabled], #drGo[disabled] { opacity: .45; cursor: default; }
+/* your picks: two lists, one card under the other */
+.dr-lists { display: grid; gap: 10px; position: sticky; top: 0; max-height: calc(95vh - 40px); overflow: auto; }
+.dr-list { display: grid; gap: 3px; align-content: start; min-height: 60px; padding: 8px; border-radius: 12px; background: rgba(8,9,22,.35); box-shadow: inset 0 0 0 1px rgba(255,255,255,.07); transition: box-shadow .15s; }
+.dr-list.side { background: rgba(8,9,22,.22); }
+.dr-list.over { box-shadow: inset 0 0 0 2px #e2b04a; }
+.dr-list h4 { margin: 0 0 4px; font: 800 12.5px/1.2 var(--font-body); color: #ffe08a; text-transform: uppercase; letter-spacing: .05em; }
+.dr-list h4 small { color: var(--mist, #b8bce0); }
+.dr-row { display: flex; align-items: center; gap: 6px; padding: 3px 4px 3px 5px; border-radius: 7px; background: rgba(255,255,255,.05); font: 600 12.5px/1.25 var(--font-body); color: #e8eaf8; cursor: grab; }
+.dr-row:hover { background: rgba(255,255,255,.1); }
+.dr-row > i { flex: none; min-width: 18px; text-align: center; font-style: normal; font-weight: 800; font-size: 11px; color: #1a1430; background: #c9b78a; border-radius: 4px; padding: 0 3px; }
+.dr-row.k-hero > i { background: #e2b04a; }
+.dr-row > span { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.dr-gold { color: #ffd36a; font-size: 13px; }
+.dr-mv { flex: none; width: 22px; height: 20px; border: 0; border-radius: 5px; background: rgba(255,255,255,.08); color: #d8dcf4; cursor: pointer; font-size: 12px; }
+.dr-mv:hover { background: rgba(226,176,74,.35); }
+.dr-empty { margin: 0; color: var(--mist, #b8bce0); font-size: 12px; }
+.dr-tipcard .card { zoom: .9; }
+/* your board */
+.dr-boardrow { display: flex; gap: 12px; align-items: flex-start; padding: 10px; border-radius: 14px; background: rgba(8,9,22,.35); box-shadow: inset 0 0 0 1px rgba(255,255,255,.07); }
+.dr-hero { flex: none; width: 130px; min-height: 150px; display: grid; place-items: center; }
+.dr-hero > .hero-pick { zoom: .62; cursor: pointer; }
+.dr-ph { color: var(--mist, #b8bce0); font-size: 12px; padding: 50px 10px; border: 1px dashed rgba(255,255,255,.18); border-radius: 12px; }
+.dr-board { flex: 1; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+.dr-bslot { display: grid; gap: 4px; justify-items: center; }
+.dr-bslot > .card { zoom: .62; }
+.dr-bslot.empty { min-height: 130px; border: 1px dashed rgba(255,255,255,.14); border-radius: 12px; }
+.dr-bctl { display: flex; gap: 3px; }
+.dr-bctl button { width: 24px; height: 20px; border: 0; border-radius: 5px; background: rgba(255,255,255,.08); color: #d8dcf4; cursor: pointer; font-size: 11px; }
+.dr-bctl button:disabled { opacity: .35; cursor: default; }
+.dr-sub { margin: 4px 0 0; font: 800 12.5px/1.2 var(--font-body); color: #ffe08a; text-transform: uppercase; letter-spacing: .05em; }
+.dr-sub small { color: var(--mist, #b8bce0); text-transform: none; letter-spacing: 0; font-weight: 600; }
+.dr-pool { display: grid; grid-template-columns: repeat(8, minmax(0, 1fr)); gap: 6px; justify-items: center; }
+.dr-pslot { position: relative; padding-top: 14px; border-radius: 10px; cursor: pointer; transition: transform .15s; }
+.dr-pslot:hover { transform: translateY(-3px); }
+.dr-pslot > .card, .dr-pslot > .hero-pick { zoom: .55; }
+/* the tournament */
+.dr-table { width: 100%; border-collapse: separate; border-spacing: 0 3px; font: 600 13px/1.3 var(--font-body); color: #e8eaf8; }
+.dr-table th { text-align: left; color: var(--mist, #b8bce0); font-size: 11.5px; text-transform: uppercase; letter-spacing: .05em; padding: 0 8px; }
+.dr-table td { padding: 6px 8px; background: rgba(255,255,255,.04); }
+.dr-table td:first-child { border-radius: 8px 0 0 8px; } .dr-table td:last-child { border-radius: 0 8px 8px 0; }
+.dr-table tr.top td { background: rgba(226,176,74,.1); }
+.dr-table tr.me td { box-shadow: inset 0 1px 0 rgba(255,211,106,.5), inset 0 -1px 0 rgba(255,211,106,.5); }
+.dr-table td.dr-bl { font-weight: 500; font-size: 12px; color: #c7cbea; max-width: 560px; }
+.dr-table td.dr-bl b { color: #fff3d0; }
+.dr-crown { color: #ffd36a; }
+.dr-results { display: flex; flex-wrap: wrap; gap: 6px; align-items: center; }
+.dr-results h4 { margin: 0 6px 0 0; font: 800 12px/1.2 var(--font-body); color: #ffe08a; text-transform: uppercase; }
+.dr-res { display: inline-flex; gap: 6px; align-items: center; padding: 4px 9px; border-radius: 8px; background: rgba(255,255,255,.05); font-size: 12.5px; color: #c7cbea; }
+.dr-res.me { background: rgba(226,176,74,.14); }
+.dr-res .w { color: #fff3d0; font-weight: 800; } .dr-res i { font-style: normal; color: #ffd36a; }
+.dr-end { padding: 12px 16px; border-radius: 12px; background: rgba(255,255,255,.05); }
+.dr-end.won { background: linear-gradient(90deg, rgba(226,176,74,.28), rgba(255,255,255,.04)); box-shadow: inset 0 0 0 1px rgba(226,176,74,.5); }
+.dr-end b { font: 800 20px/1.2 var(--font-display); color: #ffe08a; } .dr-end p { margin: 4px 0; } .dr-end small { color: var(--mist, #b8bce0); }
+.dr-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 4px; }
+@media (max-width: 900px) { .dr-draft, .dr-build { grid-template-columns: 1fr; } .dr-pack { grid-template-columns: repeat(2, minmax(0, 1fr)); } .dr-pool { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+
+/* Studio › Draft */
+.dre-set { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
+.dre-set label { display: flex; gap: 8px; align-items: center; font-weight: 600; white-space: nowrap; } .dre-set select { width: auto; min-width: 70px; }
