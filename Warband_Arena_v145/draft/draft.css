@@ -1,0 +1,41 @@
+/* v145 Draft mode */
+#modal .mbox.dr-box { width: 1180px; max-width: calc(100% - 40px); max-height: 94%; overflow: auto; padding: 18px 22px; text-align: left; box-sizing: border-box; }
+.dr { display: grid; gap: 10px; text-align: left; } .dr h4 { text-align: left; }
+.dr-head { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
+.dr-head h2 { margin: 0; }
+.dr-prog { color: var(--mist, #b8bce0); font: 600 14px/1.2 var(--font-body); }
+.dr-prog b { color: #ffe08a; }
+.dr-dir { margin-left: 10px; padding: 2px 8px; border-radius: 999px; background: rgba(255,255,255,.07); font-size: 12px; }
+.dr-dots { display: flex; gap: 4px; margin-left: auto; }
+.dr-dots i { width: 10px; height: 10px; border-radius: 50%; background: rgba(255,255,255,.12); }
+.dr-dots i.gap { margin-left: 8px; } .dr-dots i.on { background: #e2b04a; } .dr-dots i.now { background: #fff4c8; box-shadow: 0 0 8px #ffd36a; }
+.dr-hint { margin: 0; color: var(--mist, #b8bce0); font-size: 13px; }
+.dr-pack { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 10px 12px; justify-items: center; align-items: start; }
+.dr-slot { position: relative; padding: 18px 6px 6px; border-radius: 14px; cursor: pointer; transition: transform .15s, box-shadow .15s, background .15s; background: rgba(255,255,255,.03); box-shadow: inset 0 0 0 1px rgba(255,255,255,.06); }
+.dr-slot:hover { transform: translateY(-3px); background: rgba(255,255,255,.06); }
+.dr-slot.on { background: rgba(226,176,74,.16); box-shadow: inset 0 0 0 2px #e2b04a, 0 0 22px rgba(255,211,106,.35); transform: translateY(-4px); }
+.dr-slot > .card, .dr-slot > .hero-pick { pointer-events: none; zoom: .82; margin: 0 auto; }
+.dr-tag { position: absolute; top: 3px; left: 50%; transform: translateX(-50%); padding: 1px 8px; border-radius: 999px; font: 800 10.5px/1.4 var(--font-body); letter-spacing: .04em; text-transform: uppercase; color: #1a1430; background: #c9b78a; white-space: nowrap; }
+.dr-tag.k-hero { background: #e2b04a; } .dr-tag.k-spell { background: #a98cf6; }
+.dr-foot { display: flex; align-items: center; gap: 16px; justify-content: space-between; flex-wrap: wrap; }
+.dr-mine { display: grid; gap: 4px; min-width: 0; flex: 1; }
+.dr-mine b small { color: var(--mist, #b8bce0); font-weight: 600; }
+.dr-chips { display: flex; flex-wrap: wrap; gap: 5px; }
+.dr-chip { padding: 2px 9px; border-radius: 999px; font: 700 12px/1.5 var(--font-body); background: rgba(255,255,255,.07); color: #d8dcf4; }
+.dr-chip i { font-style: normal; color: #ffe08a; margin-left: 3px; }
+.dr-chip.dr-main { background: rgba(226,176,74,.22); box-shadow: inset 0 0 0 1px rgba(226,176,74,.6); }
+.dr-chip.dr-kh { background: rgba(226,176,74,.12); } .dr-chip.dr-ks { background: rgba(139,108,240,.2); }
+.dr-aff { color: var(--mist, #b8bce0); }
+.dr-take[disabled] { opacity: .45; cursor: default; }
+.dr-cols { display: grid; grid-template-columns: minmax(0, 1fr) 260px; gap: 18px; min-width: 0; } .dr-cols > * { min-width: 0; }
+.dr-grp h4, .dr-cols aside h4 { margin: 8px 0 4px; font: 800 13px/1.2 var(--font-body); color: #ffe08a; text-transform: uppercase; letter-spacing: .05em; }
+.dr-grp h4 small { color: var(--mist, #b8bce0); }
+.dr-names { display: flex; flex-wrap: wrap; gap: 5px; }
+.dr-name { display: inline-flex; align-items: center; gap: 5px; padding: 3px 9px; border-radius: 8px; background: rgba(255,255,255,.06); font: 600 12.5px/1.3 var(--font-body); color: #e8eaf8; }
+.dr-name i { font-style: normal; font-weight: 800; color: #1a1430; background: #c9b78a; border-radius: 4px; padding: 0 4px; font-size: 11px; }
+.dr-name.k-hero { background: rgba(226,176,74,.16); } .dr-name.k-spell { background: rgba(139,108,240,.18); }
+.dr-bots { display: grid; gap: 4px; }
+.dr-bot { padding: 4px 8px; border-radius: 8px; background: rgba(255,255,255,.05); font-size: 12.5px; color: #c7cbea; }
+.dr-bot b { color: #fff3d0; margin-right: 4px; }
+.dr-actions { display: flex; justify-content: flex-end; gap: 10px; margin-top: 6px; }
+@media (max-width: 900px) { .dr-pack { grid-template-columns: repeat(2, minmax(0, 1fr)); } .dr-cols { grid-template-columns: 1fr; } }
